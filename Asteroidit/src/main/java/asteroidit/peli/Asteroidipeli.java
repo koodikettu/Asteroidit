@@ -41,7 +41,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
         asteroidilista.add(new Asteroidi(-50, 300, -1.0, -1.5));
 
         addActionListener(this);
-        setInitialDelay(delay);
+        setInitialDelay(1000);
     }
 
     public int getRuudunLeveys() {
