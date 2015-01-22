@@ -28,8 +28,8 @@ public class Asteroidipeli extends Timer implements ActionListener {
     private ArrayList<Asteroidi> asteroidilista = new ArrayList<Asteroidi>();
     private Piirtoalusta piirtoalusta;
 
-    public Asteroidipeli(int delay, ActionListener listener) {
-        super(delay, listener);
+    public Asteroidipeli() {
+        super(1000, null);
 
         this.ruudunKorkeus = 600;
         this.ruudunLeveys = 1000;

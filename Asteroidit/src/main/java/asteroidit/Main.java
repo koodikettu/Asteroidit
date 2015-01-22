@@ -17,7 +17,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Asteroidipeli asteroidipeli = new Asteroidipeli(1000, null);
+        Asteroidipeli asteroidipeli = new Asteroidipeli();
         Kayttoliittyma kayttoliittyma = new Kayttoliittyma(asteroidipeli);
         
         SwingUtilities.invokeLater(kayttoliittyma);
