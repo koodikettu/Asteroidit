@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package asteroidit.domain;
 
 import asteroidit.domain.Alus;
+import java.awt.Polygon;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,22 +19,22 @@ import static org.junit.Assert.*;
  * @author Markku
  */
 public class AlusTest {
-    
+
     public AlusTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -42,18 +44,39 @@ public class AlusTest {
     //
     // @Test
     // public void hello() {}
-    
     @Test
     public void kaantotestiOikea() {
-        Alus alus = new Alus(100,100,359);
+        Alus alus = new Alus(100, 100, 359);
         alus.kaanna(1);
-        
+
         assertEquals(7, alus.getSuunta());
     }
+
+    @Test
     public void kaantotestiVasen() {
-        Alus alus = new Alus(100,100,5);
+        Alus alus = new Alus(100, 100, 5);
         alus.kaanna(-1);
-        
+
         assertEquals(357, alus.getSuunta());
     }
+
+    @Test
+    public void testaaPolygonia() {
+        Alus alus = new Alus(100, 100, 180);
+        alus.laskeAlusPolygoni();
+        Polygon polygon = alus.getAlusPolygoni();
+        assertEquals(100, polygon.xpoints[0]);
+
+    }
+    
+    @Test
+    public void testaaPolygoninKaanto() {
+        Alus alus = new Alus(100, 100, 180);
+        alus.setSuunta(0);
+        alus.laskeAlusPolygoni();
+        Polygon polygon = alus.getAlusPolygoni();
+        assertEquals(130, polygon.ypoints[0]);
+
+    }
+    
 }
