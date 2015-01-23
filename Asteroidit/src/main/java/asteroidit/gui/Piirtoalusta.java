@@ -20,8 +20,8 @@ public class Piirtoalusta extends JPanel {
 
     private Asteroidipeli peli;
     
-    public Piirtoalusta(Asteroidipeli asteroidit) {
-        this.peli=asteroidit;
+    public Piirtoalusta(Asteroidipeli a) {
+        this.peli=a;
 
     }
     
