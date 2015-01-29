@@ -5,6 +5,7 @@
  */
 package asteroidit.domain;
 
+import asteroidit.peli.Asteroidipeli;
 import java.awt.Polygon;
 
 /**
@@ -15,17 +16,21 @@ public class Alus {
 
     private int x, y;
     private int suunta;
-    private final int KAANTYMISNOPEUS=8;
+    private final int KAANTYMISNOPEUS=4;
+    private final long AMMUSTEN_VALI=100;
+    private Asteroidipeli peli;
+    private long edellisenAmmuksenAmpumisaika=-1;
     double keula_x = 0, keula_y = -30;
     double vasen_x = 15, vasen_y = -24;
     double oikea_x = 15, oikea_y = 24;
 
     Polygon alus_polygoni = new Polygon();
 
-    public Alus(int x, int y, int suunta) {
+    public Alus(int x, int y, int suunta, Asteroidipeli peli) {
         this.x = x;
         this.y = y;
         this.suunta = suunta;
+        this.peli = peli;
 
     }
 
@@ -55,27 +60,40 @@ public class Alus {
         radiaanit = Math.toRadians(this.suunta);
         double apu = Math.toRadians(150);
         // kärkikulma
-        x1 = Math.sin(radiaanit) * 30.0;
+        x1 = Math.cos(radiaanit) * 30.0;
         x1 += this.x;
-        y1 = Math.cos(radiaanit) * 30.0;
+        y1 = -Math.sin(radiaanit) * 30.0;
         y1 += this.y;
         alus_polygoni.addPoint((int) Math.round(x1), (int) Math.round(y1));
         // vasen kulma
-        x1 = Math.sin(radiaanit - apu) * 30.0;
+        x1 = Math.cos(radiaanit + apu) * 30.0;
         x1 += this.x;
-        y1 = Math.cos(radiaanit - apu) * 30.0;
+        y1 = -Math.sin(radiaanit + apu) * 30.0;
         y1 += this.y;
         alus_polygoni.addPoint((int) Math.round(x1), (int) Math.round(y1));
         // oikea kulma
-        x1 = Math.sin(radiaanit + apu) * 30.0;
+        x1 = Math.cos(radiaanit - apu) * 30.0;
         x1 += this.x;
-        y1 = Math.cos(radiaanit + apu) * 30.0;
+        y1 = -Math.sin(radiaanit - apu) * 30.0;
         y1 += this.y;
         alus_polygoni.addPoint((int) Math.round(x1), (int) Math.round(y1));
     }
     
     public Polygon getAlusPolygoni() {
         return alus_polygoni;
+    }
+    
+    public void ammu() {
+        long aikakoodi = System.currentTimeMillis();
+        if(aikakoodi-edellisenAmmuksenAmpumisaika<AMMUSTEN_VALI)
+            return;
+        double x, y;
+        x = Math.cos(Math.toRadians(this.suunta)) * 35.0;
+        x += this.x;
+        y = -Math.sin(Math.toRadians(this.suunta)) * 35.0;
+        y += this.y;
+        this.peli.uusiAmmus((int) x, (int) y, this.suunta);
+        edellisenAmmuksenAmpumisaika=aikakoodi;
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package asteroidit.gui;
 
+import asteroidit.domain.Ammus;
 import asteroidit.domain.Asteroidi;
 import asteroidit.peli.Asteroidipeli;
 import java.awt.Color;
@@ -32,6 +33,11 @@ public class Piirtoalusta extends JPanel {
         for(Asteroidi a:peli.getAsteroidilista()) {
            g.setColor(Color.BLACK);
            g.drawPolygon(a.getAsteroidiPolygoni()); 
+        }
+        
+        for(Ammus a:peli.getAmmuslista()) {
+            g.setColor(Color.BLUE);
+            g.drawPolygon(a.getAmmusPolygoni());
         }
         
         

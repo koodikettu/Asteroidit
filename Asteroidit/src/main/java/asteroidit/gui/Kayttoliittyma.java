@@ -50,7 +50,7 @@ public class Kayttoliittyma implements Runnable {
         this.piirtoalusta = new Piirtoalusta(this.peli);
         container.add(this.piirtoalusta);
 
-        frame.addKeyListener(new Nappaimistonkuuntelija(this.peli.getAlus()));
+        frame.addKeyListener(new Nappaimistonkuuntelija(this.peli));
         
     }
 
