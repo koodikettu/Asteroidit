@@ -6,6 +6,7 @@
 package asteroidit.domain;
 
 import java.awt.Polygon;
+import java.util.Random;
 
 /**
  *
@@ -60,5 +61,33 @@ public class Asteroidi {
     public void setY(int y) {
         this.y = (double) y;
     }
+    
+    public void alusta(Random random, int ruudunLeveys, int ruudunKorkeus, int reunuksenLeveys, int nopeus) {
+        int i, suunta;
+        double dx, dy;
+        i = random.nextInt(4);
+        if (i == 0) {
+            this.x = random.nextInt(ruudunLeveys + 2 * reunuksenLeveys);
+            this.y = -reunuksenLeveys;
+        } else if (i == 1) {
+            this.y = random.nextInt(ruudunKorkeus + 2 * reunuksenLeveys);
+            this.x = ruudunLeveys + reunuksenLeveys;
+
+
+        } else if (i == 2) {
+            this.x = random.nextInt(ruudunLeveys + 2 * reunuksenLeveys);
+            this.y = ruudunKorkeus + reunuksenLeveys;
+            
+        } else {
+            this.y = random.nextInt(ruudunKorkeus + 2 * reunuksenLeveys);
+            this.x = -reunuksenLeveys;
+
+        }
+        suunta=random.nextInt(360);
+        this.dx = Math.cos(Math.toRadians(suunta)) * (random.nextFloat() * nopeus + 1);
+        this.dy = Math.sin(Math.toRadians(suunta)) * (random.nextFloat() * nopeus + 1);
+    }
+    
+
 
 }

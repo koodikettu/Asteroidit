@@ -49,33 +49,33 @@ public class AlusTest {
         Alus alus = new Alus(100, 100, 359);
         alus.kaanna(1);
 
-        assertEquals(7, alus.getSuunta());
+        assertEquals(4, alus.getSuunta());
     }
 
     @Test
     public void kaantotestiVasen() {
-        Alus alus = new Alus(100, 100, 5);
+        Alus alus = new Alus(100, 100, 3);
         alus.kaanna(-1);
 
-        assertEquals(357, alus.getSuunta());
+        assertEquals(358, alus.getSuunta());
     }
 
     @Test
     public void testaaPolygonia() {
-        Alus alus = new Alus(100, 100, 180);
+        Alus alus = new Alus(100, 100, 0);
         alus.laskeAlusPolygoni();
         Polygon polygon = alus.getAlusPolygoni();
-        assertEquals(100, polygon.xpoints[0]);
+        assertEquals(130, polygon.xpoints[0]);
 
     }
     
     @Test
     public void testaaPolygoninKaanto() {
-        Alus alus = new Alus(100, 100, 180);
-        alus.setSuunta(0);
+        Alus alus = new Alus(100, 100, 0);
+        alus.setSuunta(180);
         alus.laskeAlusPolygoni();
         Polygon polygon = alus.getAlusPolygoni();
-        assertEquals(130, polygon.ypoints[0]);
+        assertEquals(100, polygon.ypoints[0]);
 
     }
     

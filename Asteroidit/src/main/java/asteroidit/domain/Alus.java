@@ -17,7 +17,7 @@ public class Alus {
     private int x, y;
     private int suunta;
     private final int KAANTYMISNOPEUS=5;
-    private final long AMMUSTEN_VALI=75;
+    private final long AMMUSTEN_VALI=50;
     private Asteroidipeli peli;
     private long edellisenAmmuksenAmpumisaika=-1;
     double keula_x = 0, keula_y = -30;

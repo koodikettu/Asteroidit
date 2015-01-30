@@ -28,13 +28,12 @@ public class Asteroidipeli extends Timer implements ActionListener {
     private final int PAIVITYSVALI = 20;
     private int ruudunLeveys;
     private int ruudunKorkeus;
-//    private int tila = 1;
-//    private int pisteet = 0;
-    private int asteroidienNopeus = 5;
+    private int asteroidienNopeus = 3;
     private Alus alus;
     private boolean vasenNuolinappain;
     private boolean oikeaNuolinappain;
     private boolean valilyonti;
+    Asteroidi a;
     Random random;
 
     private ArrayList<Asteroidi> asteroidilista = new ArrayList<Asteroidi>();
@@ -49,7 +48,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
     public Asteroidipeli() {
         super(1000, null);
 
-        this.kirjanpitaja=new Kirjanpitaja(1);
+        this.kirjanpitaja = new Kirjanpitaja(1);
         this.tormaystenKasittelija = new TormaystenKasittelija(this);
         this.ruudunKorkeus = 600;
         this.ruudunLeveys = 1000;
@@ -60,11 +59,11 @@ public class Asteroidipeli extends Timer implements ActionListener {
         valilyonti = false;
 
         random = new Random();
-
-        asteroidilista.add(uusiAsteroidi(random));
-        asteroidilista.add(uusiAsteroidi(random));
-        asteroidilista.add(uusiAsteroidi(random));
-        asteroidilista.add(uusiAsteroidi(random));
+        for (int index = 0; index < 4; index++) {
+            this.a = new Asteroidi(0, 0, 0, 0);
+            this.a.alusta(this.random, this.ruudunLeveys, this.ruudunKorkeus, this.ruudunLeveys, 5);
+            this.asteroidilista.add(a);
+        }
 
         addActionListener(this);
         setInitialDelay(1000);
@@ -73,7 +72,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
     public int getRuudunLeveys() {
         return this.ruudunLeveys;
     }
-    
+
     public Kirjanpitaja getKirjanpitaja() {
         return this.kirjanpitaja;
     }
@@ -85,44 +84,19 @@ public class Asteroidipeli extends Timer implements ActionListener {
     public Alus getAlus() {
         return this.alus;
     }
-    
+
     public Random getRandom() {
         return this.random;
     }
-    
+
     public void kasvataAsteroidienNopeutta() {
         this.asteroidienNopeus++;
     }
 
-    public Asteroidi uusiAsteroidi(Random random) {
-        int x, y;
-        double dx, dy;
-        x = random.nextInt(4);
-        if (x == 0) {
-            x = random.nextInt(ruudunLeveys + 2 * REUNUKSEN_LEVEYS);
-            y = -REUNUKSEN_LEVEYS;
-            dx = random.nextFloat() * this.asteroidienNopeus - 0.5 * this.asteroidienNopeus;
-            dy = random.nextFloat() * this.asteroidienNopeus - 0.5 * this.asteroidienNopeus;
-            return (new Asteroidi(x, y, dx, dy));
-        } else if (x == 1) {
-            y = random.nextInt(ruudunKorkeus + 2 * REUNUKSEN_LEVEYS);
-            x = ruudunLeveys + REUNUKSEN_LEVEYS;
-            dx = random.nextFloat() * this.asteroidienNopeus - 0.5 * this.asteroidienNopeus;
-            dy = random.nextFloat() * this.asteroidienNopeus - 0.5 * this.asteroidienNopeus;
-            return (new Asteroidi(x, y, dx, dy));
-        } else if (x == 2) {
-            x = random.nextInt(ruudunLeveys + 2 * REUNUKSEN_LEVEYS);
-            y = ruudunKorkeus + REUNUKSEN_LEVEYS;
-            dx = random.nextFloat() * this.asteroidienNopeus - 0.5 * this.asteroidienNopeus;
-            dy = random.nextFloat() * this.asteroidienNopeus - 0.5 * this.asteroidienNopeus;
-            return (new Asteroidi(x, y, dx, dy));
-        } else {
-            y = random.nextInt(ruudunKorkeus + 2 * REUNUKSEN_LEVEYS);
-            x = -REUNUKSEN_LEVEYS;
-            dx = random.nextFloat() * this.asteroidienNopeus - 0.5 * this.asteroidienNopeus;
-            dy = random.nextFloat() * this.asteroidienNopeus - 0.5 * this.asteroidienNopeus;
-            return (new Asteroidi(x, y, dx, dy));
-        }
+    public void uusiAsteroidi() {
+        a = new Asteroidi(0,0,0,0);
+        a.alusta(random, ruudunLeveys, ruudunKorkeus, REUNUKSEN_LEVEYS, asteroidienNopeus);
+        this.asteroidilista.add(a);
     }
 
     public void nappaimistonTila(int vNuoli, int oNuoli, int vLyonti) {
@@ -146,8 +120,6 @@ public class Asteroidipeli extends Timer implements ActionListener {
         }
     }
 
-
-
     public ArrayList<Asteroidi> getAsteroidilista() {
         return this.asteroidilista;
     }
@@ -160,7 +132,6 @@ public class Asteroidipeli extends Timer implements ActionListener {
         return this.asteroidilista.size();
     }
 
-
     public ArrayList<Ammus> getAmmuslista() {
         return this.ammuslista;
     }
@@ -168,7 +139,6 @@ public class Asteroidipeli extends Timer implements ActionListener {
     public void setPiirtoalusta(Piirtoalusta piirtoalusta) {
         this.piirtoalusta = piirtoalusta;
     }
-    
 
     public void uusiAmmus(int x, int y, int suunta) {
         this.ammuslista.add(new Ammus(x, y, suunta));
@@ -215,7 +185,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
         for (Ammus a : this.poistettavatAmmukset) {
             this.ammuslista.remove(a);
         }
-        
+
         tormaystenKasittelija.tutkiTormaykset(this.ammuslista, this.asteroidilista);
         tormaystenKasittelija.tutkiAluksenTormaykset(this.asteroidilista);
         this.poistettavatAmmukset.clear();
@@ -225,22 +195,5 @@ public class Asteroidipeli extends Timer implements ActionListener {
         setDelay(PAIVITYSVALI);
 
     }
-
-//    public void hoidaReunanYlitykset(Asteroidi a) {
-//        if (a.getX() > this.ruudunLeveys + REUNUKSEN_LEVEYS) {
-//            a.setX(-REUNUKSEN_LEVEYS);
-//        }
-//        if (a.getX() < -REUNUKSEN_LEVEYS) {
-//            a.setX(this.ruudunLeveys + REUNUKSEN_LEVEYS);
-//        }
-//        if (a.getY() > this.ruudunKorkeus + REUNUKSEN_LEVEYS) {
-//            a.setY(-REUNUKSEN_LEVEYS);
-//        }
-//        if (a.getY() < -REUNUKSEN_LEVEYS) {
-//            a.setY(this.ruudunKorkeus + REUNUKSEN_LEVEYS);
-//        }
-//    }
-
-
 
 }

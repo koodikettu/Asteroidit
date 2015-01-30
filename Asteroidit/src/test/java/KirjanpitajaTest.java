@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package asteroidit.peli;
+package asteroidit.domain;
 
-import asteroidit.domain.Asteroidi;
+import asteroidit.domain.Kirjanpitaja;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author Markku
  */
-public class Reunanylitystesti {
+public class KirjanpitajaTest {
     
-    public Reunanylitystesti() {
+    public KirjanpitajaTest() {
     }
     
     @BeforeClass
@@ -45,13 +45,17 @@ public class Reunanylitystesti {
     // public void hello() {}
     
     @Test
-    public void reunanylitystesti1() {
-        Asteroidipeli peli = new Asteroidipeli();
-        Asteroidi a =new Asteroidi(-500, 1300, 0.5, 0.5);
-        peli.hoidaReunanYlitykset(a);
-        assertEquals(a.getX(),1050);
-        assertEquals(a.getY(),-50);
+    public void kirjanpPalauttaaTilanOikein() {
+        Kirjanpitaja kp = new Kirjanpitaja(1);
+        assertEquals(1,kp.getTila());
         
+    }
+        @Test
+    public void kirjanpPalauttaaPisteetOikein() {
+        Kirjanpitaja kp = new Kirjanpitaja(1);
+        assertEquals(0,kp.getPisteet());
+        kp.kasvataPisteita(10);
+        assertEquals(10,kp.getPisteet());
         
     }
 }

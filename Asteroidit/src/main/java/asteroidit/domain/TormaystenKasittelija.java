@@ -19,6 +19,7 @@ public class TormaystenKasittelija {
     private ArrayList<Asteroidi> poistettavatAsteroidit = new ArrayList<Asteroidi>();
     private ArrayList<Ammus> poistettavatAmmukset = new ArrayList<Ammus>();
     private ArrayList<Asteroidi> uudetAsteroidit = new ArrayList<Asteroidi>();
+    private Asteroidi asteroidi;
 
     public TormaystenKasittelija(Asteroidipeli peli) {
         this.peli = peli;
@@ -26,6 +27,7 @@ public class TormaystenKasittelija {
 
     public void tutkiTormaykset(ArrayList<Ammus> ammuslista, ArrayList<Asteroidi> asteroidilista) {
         int x, y;
+        int korvaaviaAsteroideja=0;
 
         for (Ammus a : ammuslista) {
             x = a.getX();
@@ -39,18 +41,20 @@ public class TormaystenKasittelija {
                         this.peli.kasvataAsteroidienNopeutta();
                     }
                     if (this.peli.getKirjanpitaja().getPisteet() % 100 == 0) {
-                        this.uudetAsteroidit.add(peli.uusiAsteroidi(this.peli.getRandom()));
+                        korvaaviaAsteroideja++;
                     }
                 }
             }
         }
         for (Asteroidi ast : this.poistettavatAsteroidit) {
             asteroidilista.remove(ast);
-            asteroidilista.add(peli.uusiAsteroidi(this.peli.getRandom()));
+            korvaaviaAsteroideja++;
         }
         for (Ammus a : this.poistettavatAmmukset) {
             ammuslista.remove(a);
         }
+        for(int i=0;i<korvaaviaAsteroideja;i++)
+            this.peli.uusiAsteroidi();
         this.poistettavatAsteroidit.clear();
         this.poistettavatAmmukset.clear();
 
