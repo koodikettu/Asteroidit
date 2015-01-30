@@ -16,8 +16,8 @@ public class Alus {
 
     private int x, y;
     private int suunta;
-    private final int KAANTYMISNOPEUS=4;
-    private final long AMMUSTEN_VALI=100;
+    private final int KAANTYMISNOPEUS=5;
+    private final long AMMUSTEN_VALI=75;
     private Asteroidipeli peli;
     private long edellisenAmmuksenAmpumisaika=-1;
     double keula_x = 0, keula_y = -30;
@@ -26,7 +26,7 @@ public class Alus {
 
     Polygon alus_polygoni = new Polygon();
 
-    public Alus(int x, int y, int suunta, Asteroidipeli peli) {
+    public Alus(int x, int y, int suunta) {
         this.x = x;
         this.y = y;
         this.suunta = suunta;
@@ -83,17 +83,18 @@ public class Alus {
         return alus_polygoni;
     }
     
-    public void ammu() {
+    public Ammus ammu() {
         long aikakoodi = System.currentTimeMillis();
         if(aikakoodi-edellisenAmmuksenAmpumisaika<AMMUSTEN_VALI)
-            return;
+            return null;
         double x, y;
         x = Math.cos(Math.toRadians(this.suunta)) * 35.0;
         x += this.x;
         y = -Math.sin(Math.toRadians(this.suunta)) * 35.0;
         y += this.y;
-        this.peli.uusiAmmus((int) x, (int) y, this.suunta);
         edellisenAmmuksenAmpumisaika=aikakoodi;
+        return(new Ammus((int) x, (int) y, this.suunta));
+
     }
 
 }

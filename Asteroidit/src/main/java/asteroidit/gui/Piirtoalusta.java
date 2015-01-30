@@ -18,6 +18,8 @@ import javax.swing.JPanel;
  */
 public class Piirtoalusta extends JPanel {
     
+    private int status;
+    private String s;
 
     private Asteroidipeli peli;
     
@@ -42,7 +44,19 @@ public class Piirtoalusta extends JPanel {
         
         
         g.setColor(Color.RED);
+        
+        status=peli.getTila();
+        if(status==0 || status==-1)
+            g.drawString("PELI LOPPUI",150,150);
+        
         g.fillPolygon(peli.getAlus().getAlusPolygoni());
+        g.setColor(Color.DARK_GRAY);
+        s="Asteroidien määrä: " + peli.getAsteroidienMaara();
+        g.drawString(s, 10,10);
+        s="Ammusten määrä: " + peli.getAmmustenMaara();
+        g.drawString(s, 10, 30);
+        s="PISTEET: " + peli.getPisteet();
+        g.drawString(s, 10, 50);
     }
 
     public void paivita() {
