@@ -168,6 +168,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
     public void setPiirtoalusta(Piirtoalusta piirtoalusta) {
         this.piirtoalusta = piirtoalusta;
     }
+    
 
     public void uusiAmmus(int x, int y, int suunta) {
         this.ammuslista.add(new Ammus(x, y, suunta));
@@ -199,14 +200,14 @@ public class Asteroidipeli extends Timer implements ActionListener {
 
         for (Asteroidi a : this.asteroidilista) {
             a.liiku();
-            hoidaReunanYlitykset(a);
+            tormaystenKasittelija.hoidaReunanYlitykset(a, REUNUKSEN_LEVEYS);
             a.laskePolygoni();
 
         }
 
         for (Ammus a : this.ammuslista) {
             a.liiku();
-            if (!onRuudulla(a)) {
+            if (!tormaystenKasittelija.onRuudulla(a)) {
                 this.poistettavatAmmukset.add(a);
             }
 
@@ -225,81 +226,21 @@ public class Asteroidipeli extends Timer implements ActionListener {
 
     }
 
-    public void hoidaReunanYlitykset(Asteroidi a) {
-        if (a.getX() > this.ruudunLeveys + REUNUKSEN_LEVEYS) {
-            a.setX(-REUNUKSEN_LEVEYS);
-        }
-        if (a.getX() < -REUNUKSEN_LEVEYS) {
-            a.setX(this.ruudunLeveys + REUNUKSEN_LEVEYS);
-        }
-        if (a.getY() > this.ruudunKorkeus + REUNUKSEN_LEVEYS) {
-            a.setY(-REUNUKSEN_LEVEYS);
-        }
-        if (a.getY() < -REUNUKSEN_LEVEYS) {
-            a.setY(this.ruudunKorkeus + REUNUKSEN_LEVEYS);
-        }
-    }
-
-    public boolean onRuudulla(Ammus a) {
-        int x = a.getX();
-        int y = a.getY();
-        if (y < 0 || y > ruudunKorkeus) {
-            return false;
-        } else if (x < 0 || x > ruudunLeveys) {
-            return false;
-        }
-        return true;
-    }
-
-//    public void tutkiTormaykset() {
-//        int x, y;
-//        for (Ammus a : this.ammuslista) {
-//            x = a.getX();
-//            y = a.getY();
-//            for (Asteroidi ast : this.asteroidilista) {
-//                if (ast.getAsteroidiPolygoni().contains(x, y)) {
-//                    this.poistettavatAsteroidit.add(ast);
-//                    this.poistettavatAmmukset.add(a);
-//                    this.kirjanpitaja.kasvataPisteita(10);
-//                    if (this.kirjanpitaja.getPisteet() % 100 == 0) {
-//                        this.asteroidienNopeus++;
-//                    }
-//                    if (this.kirjanpitaja.getPisteet() % 100 == 0) {
-//                        this.uudetAsteroidit.add(uusiAsteroidi(this.random));
-//                    }
-//                }
-//            }
+//    public void hoidaReunanYlitykset(Asteroidi a) {
+//        if (a.getX() > this.ruudunLeveys + REUNUKSEN_LEVEYS) {
+//            a.setX(-REUNUKSEN_LEVEYS);
 //        }
-//        for (Asteroidi ast : this.poistettavatAsteroidit) {
-//            this.asteroidilista.remove(ast);
-//            this.asteroidilista.add(uusiAsteroidi(this.random));
+//        if (a.getX() < -REUNUKSEN_LEVEYS) {
+//            a.setX(this.ruudunLeveys + REUNUKSEN_LEVEYS);
 //        }
-//        for (Ammus a : this.poistettavatAmmukset) {
-//            this.ammuslista.remove(a);
+//        if (a.getY() > this.ruudunKorkeus + REUNUKSEN_LEVEYS) {
+//            a.setY(-REUNUKSEN_LEVEYS);
 //        }
-//        this.poistettavatAsteroidit.clear();
-//        this.poistettavatAmmukset.clear();
-//
-//    }
-//
-//    public void tutkiAluksenTormaykset() {
-//        Polygon p = this.alus.getAlusPolygoni();
-//        boolean tormays = false;
-//        int[] x = new int[3];
-//        int[] y = new int[3];
-//        for (Asteroidi a : this.asteroidilista) {
-//            x = p.xpoints;
-//            y = p.ypoints;
-//            for (int i = 0; i < 3; i++) {
-//                if (a.getAsteroidiPolygoni().contains(x[i], y[i])) {
-//                    tormays = true;
-//                }
-//            }
-//
-//        }
-//        if (tormays) {
-//            this.kirjanpitaja.setTila(-1);
+//        if (a.getY() < -REUNUKSEN_LEVEYS) {
+//            a.setY(this.ruudunKorkeus + REUNUKSEN_LEVEYS);
 //        }
 //    }
+
+
 
 }
