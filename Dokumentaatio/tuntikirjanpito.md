@@ -7,3 +7,7 @@
 22.1.2015  5h  Ensimmäisen toteutuksen ohjelmoiminen
 
 22.1.2015  3h  Testauksen suunnittelu ja ensimmäisten testien kirjoittaminen
+
+29.1.2015  5h  Toteutettu ampumistoiminnallisuus ja siihen liittyvä luokka, paranneltu toimintaa ja refaktoroitu runsaasti
+
+30.1.2015  3h  Paranneltu koodia. Muokattu testejä vastaamaan refaktorointeja. Päivitetty luokkakaaviota.
