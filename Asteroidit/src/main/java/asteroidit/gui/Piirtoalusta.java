@@ -45,7 +45,7 @@ public class Piirtoalusta extends JPanel {
         
         g.setColor(Color.RED);
         
-        status=peli.getTila();
+        status=peli.getKirjanpitaja().getTila();
         if(status==0 || status==-1)
             g.drawString("PELI LOPPUI",150,150);
         
@@ -55,7 +55,7 @@ public class Piirtoalusta extends JPanel {
         g.drawString(s, 10,10);
         s="Ammusten määrä: " + peli.getAmmustenMaara();
         g.drawString(s, 10, 30);
-        s="PISTEET: " + peli.getPisteet();
+        s="PISTEET: " + peli.getKirjanpitaja().getPisteet();
         g.drawString(s, 10, 50);
     }
 
