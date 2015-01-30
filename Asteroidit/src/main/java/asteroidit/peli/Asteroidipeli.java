@@ -28,7 +28,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
     private final int PAIVITYSVALI = 20;
     private int ruudunLeveys;
     private int ruudunKorkeus;
-    private int asteroidienNopeus = 3;
+    private int asteroidienNopeus = 2;
     private Alus alus;
     private boolean vasenNuolinappain;
     private boolean oikeaNuolinappain;
@@ -61,7 +61,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
         random = new Random();
         for (int index = 0; index < 4; index++) {
             this.a = new Asteroidi(0, 0, 0, 0);
-            this.a.alusta(this.random, this.ruudunLeveys, this.ruudunKorkeus, this.ruudunLeveys, 5);
+            this.a.alusta(this.random, this.ruudunLeveys, this.ruudunKorkeus, this.ruudunLeveys, asteroidienNopeus);
             this.asteroidilista.add(a);
         }
 

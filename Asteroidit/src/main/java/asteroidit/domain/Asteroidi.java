@@ -84,8 +84,9 @@ public class Asteroidi {
 
         }
         suunta=random.nextInt(360);
-        this.dx = Math.cos(Math.toRadians(suunta)) * (random.nextFloat() * nopeus + 1);
-        this.dy = Math.sin(Math.toRadians(suunta)) * (random.nextFloat() * nopeus + 1);
+        float apu=random.nextFloat();
+        this.dx = Math.cos(Math.toRadians(suunta)) * (apu * nopeus + 1);
+        this.dy = Math.sin(Math.toRadians(suunta)) * (apu * nopeus + 1);
     }
     
 
