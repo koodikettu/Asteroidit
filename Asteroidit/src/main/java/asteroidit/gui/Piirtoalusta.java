@@ -18,46 +18,46 @@ import javax.swing.JPanel;
  * @author Markku
  */
 public class Piirtoalusta extends JPanel {
-    
+
     private int status;
     private String s;
 
     private Asteroidipeli peli;
-    
+
     public Piirtoalusta(Asteroidipeli a) {
-        this.peli=a;
+        this.peli = a;
 
     }
-    
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        for(Asteroidi a:peli.getAsteroidilista()) {
-           g.setColor(Color.BLACK);
-           g.fillPolygon(a.getAsteroidiPolygoni()); 
+        for (Asteroidi a : peli.getAsteroidilista()) {
+            g.setColor(Color.BLACK);
+            g.fillPolygon(a.getAsteroidiPolygoni());
 
         }
-        
-        for(Ammus a:peli.getAmmuslista()) {
+
+        for (Ammus a : peli.getAmmuslista()) {
             g.setColor(Color.BLUE);
             g.drawPolygon(a.getAmmusPolygoni());
         }
-        
-        
+
         g.setColor(Color.RED);
-        
-        status=peli.getKirjanpitaja().getTila();
-        if(status==0 || status==-1)
-            g.drawString("PELI LOPPUI",150,150);
-        
+
+        status = peli.getKirjanpitaja().getTila();
+        if (status == 0 || status == -1) {
+            g.drawString("PELI LOPPUI", 150, 150);
+        }
+
         g.fillPolygon(peli.getAlus().getAlusPolygoni());
         g.setColor(Color.DARK_GRAY);
-        s="Asteroidien määrä: " + peli.getAsteroidienMaara();
-        g.drawString(s, 10,10);
-        s="Ammusten määrä: " + peli.getAmmustenMaara();
+        s = "Asteroidien määrä: " + peli.getAsteroidienMaara();
+        g.drawString(s, 10, 10);
+        s = "Ammusten määrä: " + peli.getAmmustenMaara();
         g.drawString(s, 10, 30);
-        s="PISTEET: " + peli.getKirjanpitaja().getPisteet();
+        s = "PISTEET: " + peli.getKirjanpitaja().getPisteet();
         g.drawString(s, 10, 50);
 //        s="SUUNTA: " + peli.getAlus().getSuunta();
 //        g.drawString(s, 10, 70);
@@ -70,5 +70,5 @@ public class Piirtoalusta extends JPanel {
     public void paivita() {
         super.repaint();
     }
-            
+
 }

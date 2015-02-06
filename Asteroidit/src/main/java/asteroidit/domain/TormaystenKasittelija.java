@@ -10,8 +10,9 @@ import java.awt.Polygon;
 import java.util.ArrayList;
 
 /**
- * Luokka sisältää metodit, joilla käsitellään ruudulla liikkuvien kohteiden välisiä törmäyksiä.
- * 
+ * Luokka sisältää metodit, joilla käsitellään ruudulla liikkuvien kohteiden
+ * välisiä törmäyksiä.
+ *
  * @author Markku
  */
 public class TormaystenKasittelija {
@@ -28,7 +29,7 @@ public class TormaystenKasittelija {
 
     public void tutkiTormaykset(ArrayList<Ammus> ammuslista, ArrayList<Asteroidi> asteroidilista) {
         int x, y;
-        int korvaaviaAsteroideja=0;
+        int korvaaviaAsteroideja = 0;
 
         for (Ammus a : ammuslista) {
             x = a.getX();
@@ -54,8 +55,9 @@ public class TormaystenKasittelija {
         for (Ammus a : this.poistettavatAmmukset) {
             ammuslista.remove(a);
         }
-        for(int i=0;i<korvaaviaAsteroideja;i++)
+        for (int i = 0; i < korvaaviaAsteroideja; i++) {
             this.peli.uusiAsteroidi();
+        }
         this.poistettavatAsteroidit.clear();
         this.poistettavatAmmukset.clear();
 
@@ -73,9 +75,9 @@ public class TormaystenKasittelija {
                 if (a.getAsteroidiPolygoni().contains(x[i], y[i])) {
                     System.out.println("TÖRMÄYS!");
                     System.out.println("Asteroidin koordinaatit: ");
-                    for(int t=0;t<a.getAsteroidiPolygoni().npoints;t++) {
+                    for (int t = 0; t < a.getAsteroidiPolygoni().npoints; t++) {
                         System.out.println(a.getAsteroidiPolygoni().xpoints[t] + ":" + a.getAsteroidiPolygoni().ypoints[t]);
-                        
+
                     }
                     System.out.println("Asteroidin koord:");
                     System.out.println(x[i] + ":" + y[i]);
@@ -99,8 +101,7 @@ public class TormaystenKasittelija {
         }
         return true;
     }
-    
-    
+
     public void hoidaReunanYlitykset(Liikkuva a, int reunuksenLeveys) {
         if (a.getX() > this.peli.getRuudunLeveys() + reunuksenLeveys) {
             a.setX(-reunuksenLeveys);

@@ -19,7 +19,8 @@ import java.util.Random;
 import javax.swing.Timer;
 
 /**
- * Luokka on asteroidipelin pääluokka, joka sisältää oliomuuttujina muut peliin liittyvät oliot.
+ * Luokka on asteroidipelin pääluokka, joka sisältää oliomuuttujina muut peliin
+ * liittyvät oliot.
  *
  * @author Markku
  */
@@ -179,10 +180,12 @@ public class Asteroidipeli extends Timer implements ActionListener {
                 this.ammuslista.add(a);
             }
         }
-        if(ylosNuolinappain)
+        if (ylosNuolinappain) {
             getAlus().kiihdyta(true);
-        if(alasNuolinappain)
+        }
+        if (alasNuolinappain) {
             getAlus().kiihdyta(false);
+        }
         for (Asteroidi a : this.uudetAsteroidit) {
             this.asteroidilista.add(a);
         }

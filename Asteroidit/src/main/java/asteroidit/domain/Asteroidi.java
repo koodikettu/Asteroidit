@@ -9,19 +9,20 @@ import java.awt.Polygon;
 import java.util.Random;
 
 /**
- * Luokka sisältää pelikentässä liikkuvien asteroidien hallintaan tarvittavat metodit.
- * 
+ * Luokka sisältää pelikentässä liikkuvien asteroidien hallintaan tarvittavat
+ * metodit.
+ *
  * @author Markku
  */
 public class Asteroidi implements Liikkuva {
 
     private double x, y;
     private double dx, dy;
-    private final int KULMIEN_MINIMIMAARA=4;
-    private final int KULMIEN_MAKSIMIMAARA=7;
-    private final int KULMAN_VAIHTELU=15;
-    private final int SADE_MIN=25;
-    private final int SADE_MAX=60;
+    private final int KULMIEN_MINIMIMAARA = 4;
+    private final int KULMIEN_MAKSIMIMAARA = 7;
+    private final int KULMAN_VAIHTELU = 15;
+    private final int SADE_MIN = 25;
+    private final int SADE_MAX = 60;
     private int suunta;
     private int nopeus;
     private Polygon muoto;
@@ -33,44 +34,57 @@ public class Asteroidi implements Liikkuva {
         this.y = y;
         this.dx = dx;
         this.dy = dy;
-        this.random=random;
+        this.random = random;
         this.muoto = arvoMuoto();
         this.polygoni = new Polygon();
 
     }
-    
+
+    /**
+     * Metodi arpoo uudelle asteroidille annettujen rajojen sisällä olevan
+     * satunnaisen muodon.
+     *
+     * @return satunnaisen muotoinen polygoni, joka määrittelee asteroidin
+     * muodon
+     */
     public Polygon arvoMuoto() {
         Polygon p = new Polygon();
         int apu, sade, kulma;
         double px, py;
-        int kulmienMaara=KULMIEN_MINIMIMAARA+this.random.nextInt(KULMIEN_MAKSIMIMAARA-KULMIEN_MINIMIMAARA+1);
-        for(int i=0;i<kulmienMaara;i++) {
-            sade=SADE_MIN+random.nextInt(SADE_MAX-SADE_MIN+1);
-            apu=random.nextInt(KULMAN_VAIHTELU);
-            apu=apu-KULMAN_VAIHTELU/2;
-            kulma=(int) i*360/kulmienMaara+apu;
-            px=(int) sade*Math.cos(Math.toRadians(kulma));
-            py=(int) -sade*Math.sin(Math.toRadians(kulma));
-            p.addPoint((int) px,(int) py);
+        int kulmienMaara = KULMIEN_MINIMIMAARA + this.random.nextInt(KULMIEN_MAKSIMIMAARA - KULMIEN_MINIMIMAARA + 1);
+        for (int i = 0; i < kulmienMaara; i++) {
+            sade = SADE_MIN + random.nextInt(SADE_MAX - SADE_MIN + 1);
+            apu = random.nextInt(KULMAN_VAIHTELU);
+            apu = apu - KULMAN_VAIHTELU / 2;
+            kulma = (int) i * 360 / kulmienMaara + apu;
+            px = (int) sade * Math.cos(Math.toRadians(kulma));
+            py = (int) -sade * Math.sin(Math.toRadians(kulma));
+            p.addPoint((int) px, (int) py);
         }
-            
-        
-        
+
         return p;
     }
-    
+
+    /**
+     * Metodi laskee asteroidia ruudulla edustavan polygonin perustuen
+     * asteroidin koordinaatteihin ja sen muotoon.
+     */
     public void laskePolygoni() {
         this.polygoni.reset();
-        for(int i=0;i<this.muoto.npoints;i++) {
-            this.polygoni.addPoint(this.muoto.xpoints[i]+(int) this.x, this.muoto.ypoints[i]+(int) this.y);
+        for (int i = 0; i < this.muoto.npoints; i++) {
+            this.polygoni.addPoint(this.muoto.xpoints[i] + (int) this.x, this.muoto.ypoints[i] + (int) this.y);
         }
-    
+
     }
 
     public Polygon getAsteroidiPolygoni() {
-        
+
         return this.polygoni;
     }
+
+    /**
+     * Metodi liikuttaa asteroidia sen nopeuden mukaisesti.
+     */
 
     public void liiku() {
         this.x += dx;
@@ -96,7 +110,19 @@ public class Asteroidi implements Liikkuva {
     public void setY(int y) {
         this.y = (double) y;
     }
-    
+
+    /**
+     * Metodi alustaa uuden asteroidin siten, että sen alkukoordinaatit eivät
+     * ole ruudulla, vaan ruudun ulkopuolelle jäävillä vakiolevyisillä
+     * reuna-alueilla. Asteroidin koordinaatit voivat olla siis aluksi näytön
+     * millä tahansa puolella.
+     *
+     * @param random Random-luokan olio
+     * @param ruudunLeveys pelin käyttämän ikkunan leveys
+     * @param ruudunKorkeus pelin käyttämän ikkunan korkeus
+     * @param reunuksenLeveys pelin ikkunan ulkopuolisen reuna-alueen leveys
+     * @param nopeus asteroidin nopeus
+     */
     public void alusta(Random random, int ruudunLeveys, int ruudunKorkeus, int reunuksenLeveys, int nopeus) {
         int i, suunta;
         double dx, dy;
@@ -108,22 +134,19 @@ public class Asteroidi implements Liikkuva {
             this.y = random.nextInt(ruudunKorkeus + 2 * reunuksenLeveys);
             this.x = ruudunLeveys + reunuksenLeveys;
 
-
         } else if (i == 2) {
             this.x = random.nextInt(ruudunLeveys + 2 * reunuksenLeveys);
             this.y = ruudunKorkeus + reunuksenLeveys;
-            
+
         } else {
             this.y = random.nextInt(ruudunKorkeus + 2 * reunuksenLeveys);
             this.x = -reunuksenLeveys;
 
         }
-        suunta=random.nextInt(360);
-        float apu=random.nextFloat();
+        suunta = random.nextInt(360);
+        float apu = random.nextFloat();
         this.dx = Math.cos(Math.toRadians(suunta)) * (apu * nopeus + 1);
         this.dy = Math.sin(Math.toRadians(suunta)) * (apu * nopeus + 1);
     }
-    
-
 
 }

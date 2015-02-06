@@ -13,7 +13,7 @@ import javax.swing.WindowConstants;
 
 /**
  * Luokka luo pelin käyttämän graafien käyttöliittymän.
- * 
+ *
  * @author Markku
  */
 public class Kayttoliittyma implements Runnable {
@@ -22,7 +22,6 @@ public class Kayttoliittyma implements Runnable {
     private Asteroidipeli peli;
 
     private Piirtoalusta piirtoalusta;
-
 
     public Kayttoliittyma(Asteroidipeli asteroidipeli) {
         super();
@@ -52,13 +51,13 @@ public class Kayttoliittyma implements Runnable {
         container.add(this.piirtoalusta);
 
         frame.addKeyListener(new Nappaimistonkuuntelija(this.peli));
-        
+
     }
 
     public Piirtoalusta getPiirtoalusta() {
         return this.piirtoalusta;
     }
-    
+
     public JFrame getFrame() {
         return frame;
     }

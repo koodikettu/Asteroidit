@@ -6,17 +6,18 @@
 package asteroidit.domain;
 
 /**
- * Rajapinta, joka kokoaa yhteen oliot, jotka liikkuvat ruudulla siten,
- * että poistuttuaan yhdeltä laidalta ne palaavat toiselta.
- * 
+ * Rajapinta, joka kokoaa yhteen oliot, jotka liikkuvat ruudulla siten, että
+ * poistuttuaan yhdeltä laidalta ne palaavat toiselta.
+ *
  * @author Markku
  */
 public interface Liikkuva {
+
     public int getX();
-    
+
     public int getY();
-    
+
     public void setX(int x);
-    
+
     public void setY(int x);
 }

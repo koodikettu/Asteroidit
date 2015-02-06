@@ -10,6 +10,8 @@ import asteroidit.peli.Asteroidipeli;
 import javax.swing.SwingUtilities;
 
 /**
+ * Luokka sisältää main-metodin, joka luo pelin tärkeimmät komponentit, eli
+ * asteroidipeli- ja kayttoliittyma-oliot.
  *
  * @author Markku
  */
@@ -19,7 +21,7 @@ public class Main {
 
         Asteroidipeli asteroidipeli = new Asteroidipeli();
         Kayttoliittyma kayttoliittyma = new Kayttoliittyma(asteroidipeli);
-        
+
         SwingUtilities.invokeLater(kayttoliittyma);
         System.out.println("Käyttöliittymän luominen.");
         while (kayttoliittyma.getPiirtoalusta() == null) {
@@ -31,12 +33,10 @@ public class Main {
             }
         }
 
-
         asteroidipeli.setPiirtoalusta(kayttoliittyma.getPiirtoalusta());
 
-
         asteroidipeli.start();
-        
+
         System.out.println("GAME OVER!");
 
     }
