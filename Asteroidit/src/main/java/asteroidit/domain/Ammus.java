@@ -8,7 +8,8 @@ package asteroidit.domain;
 import java.awt.Polygon;
 
 /**
- *
+ * Luokka sisältää pelaajan ampumien ammuksien käsittelyyn tarvittavat metodit.
+ * 
  * @author Markku
  */
 public class Ammus {

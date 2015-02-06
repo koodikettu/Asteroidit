@@ -12,7 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 /**
- *
+ * Luokka luo pelin käyttämän graafien käyttöliittymän.
+ * 
  * @author Markku
  */
 public class Kayttoliittyma implements Runnable {

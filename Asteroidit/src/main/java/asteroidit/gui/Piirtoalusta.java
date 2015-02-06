@@ -13,6 +13,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 /**
+ * Luokka vastaa pelitilanteen piirtämisestä graafiseen käyttöliittymään.
  *
  * @author Markku
  */

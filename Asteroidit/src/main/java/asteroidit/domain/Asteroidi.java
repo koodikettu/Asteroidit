@@ -9,7 +9,8 @@ import java.awt.Polygon;
 import java.util.Random;
 
 /**
- *
+ * Luokka sisältää pelikentässä liikkuvien asteroidien hallintaan tarvittavat metodit.
+ * 
  * @author Markku
  */
 public class Asteroidi implements Liikkuva {

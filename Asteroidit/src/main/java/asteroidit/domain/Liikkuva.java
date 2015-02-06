@@ -6,7 +6,9 @@
 package asteroidit.domain;
 
 /**
- *
+ * Rajapinta, joka kokoaa yhteen oliot, jotka liikkuvat ruudulla siten,
+ * että poistuttuaan yhdeltä laidalta ne palaavat toiselta.
+ * 
  * @author Markku
  */
 public interface Liikkuva {

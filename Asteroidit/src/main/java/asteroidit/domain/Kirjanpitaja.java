@@ -6,7 +6,8 @@
 package asteroidit.domain;
 
 /**
- *
+ * Luokka sisältää pelin tilaan liittyvän tiedon käsittelyyn tarvittavat metodit.
+ * 
  * @author Markku
  */
 public class Kirjanpitaja {

@@ -9,7 +9,7 @@ import asteroidit.peli.Asteroidipeli;
 import java.awt.Polygon;
 
 /**
- *
+ * Luokka sisältää pelaajan ohjaaman avaruusaluksen käsittelyyn tarvittavat metodit.
  * @author Markku
  */
 public class Alus implements Liikkuva {

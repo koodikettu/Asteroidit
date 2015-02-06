@@ -11,7 +11,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- *
+ * Luokka vastaa pelaajan näppäimistön välityksellä tekemien toimintojen välittämisestä sovelluslogiikalle.
+ * 
  * @author Markku
  */
 public class Nappaimistonkuuntelija implements KeyListener {

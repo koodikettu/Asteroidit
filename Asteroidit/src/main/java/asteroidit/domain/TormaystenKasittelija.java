@@ -10,7 +10,8 @@ import java.awt.Polygon;
 import java.util.ArrayList;
 
 /**
- *
+ * Luokka sisältää metodit, joilla käsitellään ruudulla liikkuvien kohteiden välisiä törmäyksiä.
+ * 
  * @author Markku
  */
 public class TormaystenKasittelija {

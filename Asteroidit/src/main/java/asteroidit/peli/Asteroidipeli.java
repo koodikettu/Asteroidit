@@ -19,6 +19,7 @@ import java.util.Random;
 import javax.swing.Timer;
 
 /**
+ * Luokka on asteroidipelin pääluokka, joka sisältää oliomuuttujina muut peliin liittyvät oliot.
  *
  * @author Markku
  */
