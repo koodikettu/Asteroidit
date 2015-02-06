@@ -164,10 +164,6 @@ public class Asteroidipeli extends Timer implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (this.kirjanpitaja.getTila() == -1) {
-            this.stop();
-        }
-
         if (oikeaNuolinappain) {
             alus.kaanna(-1);
         }
@@ -216,6 +212,11 @@ public class Asteroidipeli extends Timer implements ActionListener {
 
         alus.laskeAlusPolygoni();
         piirtoalusta.paivita();
+
+        if (this.kirjanpitaja.getTila() == -1) {
+            this.stop();
+        }
+
         setDelay(PAIVITYSVALI);
 
     }
