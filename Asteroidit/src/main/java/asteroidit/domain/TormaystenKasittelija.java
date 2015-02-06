@@ -27,6 +27,14 @@ public class TormaystenKasittelija {
         this.peli = peli;
     }
 
+    /**
+     * Metodi tutkii ammusten ja asteroidien väliset törmäykset. Jos törmäys
+     * havaitaan, siirretään kyseiset asteroidit ja ammukset odottamaan
+     * poistamista erityisille poistolistoille.
+     *
+     * @param ammuslista lista ruudulla olevista ammuksista
+     * @param asteroidilista lista pelissä olevista asteroideista
+     */
     public void tutkiTormaykset(ArrayList<Ammus> ammuslista, ArrayList<Asteroidi> asteroidilista) {
         int x, y;
         int korvaaviaAsteroideja = 0;
@@ -63,6 +71,12 @@ public class TormaystenKasittelija {
 
     }
 
+    /**
+     * Metodi tutkii pelaajan aluksen ja asteroidien väliset törmäykset. Jos
+     * törmäys havaitaan, peli päättyy.
+     *
+     * @param asteroidilista lista pelissä olevista asteroideista
+     */
     public void tutkiAluksenTormaykset(ArrayList<Asteroidi> asteroidilista) {
         Polygon p = this.peli.getAlus().getAlusPolygoni();
         boolean tormays = false;
@@ -91,6 +105,12 @@ public class TormaystenKasittelija {
         }
     }
 
+    /**
+     * Metodi tutkii, onko parametrina annettu Ammus-tyyppinen olio ruudulla.
+     *
+     * @param a tutkittava Ammus-tyypin olio
+     * @return palauttaa true, jos ammus on ruudulla, false, jos ei ole
+     */
     public boolean onRuudulla(Ammus a) {
         int x = a.getX();
         int y = a.getY();
@@ -102,6 +122,13 @@ public class TormaystenKasittelija {
         return true;
     }
 
+    /**
+     * Metodi tutkii, onko Liikkuva-rajapinnan toteuttava olio ajautunut ulos
+     * ruudulta. Jos näin on, se siirtää olion ruudun vastakkaiselle puolelle.
+     *
+     * @param a Liikkuva-rajapinnan toteuttava olio.
+     * @param reunuksenLeveys pelin käyttämän ikkunan ulkopuolelle jäävän reuna-alueen leveys
+     */
     public void hoidaReunanYlitykset(Liikkuva a, int reunuksenLeveys) {
         if (a.getX() > this.peli.getRuudunLeveys() + reunuksenLeveys) {
             a.setX(-reunuksenLeveys);
