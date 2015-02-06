@@ -12,25 +12,30 @@ import java.awt.Polygon;
  *
  * @author Markku
  */
-public class Alus {
+public class Alus implements Liikkuva {
 
-    private int x, y;
-    private int suunta;
-    private final int KAANTYMISNOPEUS=5;
-    private final long AMMUSTEN_VALI=50;
+    private double x, y;
+    private double suunta;
+    private double nopeus;
+    private double dx, dy;
+    private final int KAANTYMISNOPEUS = 5;
+    private double kulkusuunta;
+    private final long AMMUSTEN_VALI = 50;
+    private final double NOPEUDENKASVATUSVAKIO = 0.5;
+    private final double HIDASTUMISVAKIO = 0.1;
     private Asteroidipeli peli;
-    private long edellisenAmmuksenAmpumisaika=-1;
-    double keula_x = 0, keula_y = -30;
-    double vasen_x = 15, vasen_y = -24;
-    double oikea_x = 15, oikea_y = 24;
+    private long edellisenAmmuksenAmpumisaika = -1;
+
 
     Polygon alus_polygoni = new Polygon();
 
     public Alus(int x, int y, int suunta) {
-        this.x = x;
-        this.y = y;
+        this.x = (double) x;
+        this.y = (double) y;
         this.suunta = suunta;
         this.peli = peli;
+        this.nopeus = 0;
+        this.kulkusuunta = suunta;
 
     }
 
@@ -43,13 +48,45 @@ public class Alus {
             suunta += 360;
         }
     }
-    
-    public int getSuunta() {
+
+    public void liiku() {
+        this.x += nopeus * Math.cos(Math.toRadians(kulkusuunta));
+        this.y -= nopeus * Math.sin(Math.toRadians(kulkusuunta));
+        this.nopeus = nopeus - HIDASTUMISVAKIO;
+        if(this.nopeus>0)
+            this.nopeus-=HIDASTUMISVAKIO;
+        else if(this.nopeus<0)
+            this.nopeus+=HIDASTUMISVAKIO;
+        if(Math.abs(this.nopeus)<HIDASTUMISVAKIO)
+            this.nopeus=0;
+        
+    }
+
+    public void kiihdyta(boolean eteenVaiTaakse) {
+        double a, b;
+        if (eteenVaiTaakse) {
+            this.nopeus = laskeUusiNopeus(this.nopeus, this.kulkusuunta, this.NOPEUDENKASVATUSVAKIO, this.suunta);
+            this.kulkusuunta = laskeUusiSuunta();
+        }
+        if (!eteenVaiTaakse) {
+            this.nopeus = laskeUusiNopeus(this.nopeus, this.kulkusuunta, this.NOPEUDENKASVATUSVAKIO, this.suunta-180);
+            this.kulkusuunta = laskeUusiSuunta();
+        }
+    }
+
+    public double getSuunta() {
         return this.suunta;
     }
+
+    public void setSuunta(double suunta) {
+        this.suunta = suunta;
+    }
+    public double getKulkusuunta() {
+        return this.kulkusuunta;
+    }
     
-    public void setSuunta(int suunta) {
-        this.suunta=suunta;
+    public double getNopeus() {
+        return this.nopeus;
     }
 
     public void laskeAlusPolygoni() {
@@ -78,23 +115,59 @@ public class Alus {
         y1 += this.y;
         alus_polygoni.addPoint((int) Math.round(x1), (int) Math.round(y1));
     }
-    
+
     public Polygon getAlusPolygoni() {
         return alus_polygoni;
     }
-    
+
     public Ammus ammu() {
         long aikakoodi = System.currentTimeMillis();
-        if(aikakoodi-edellisenAmmuksenAmpumisaika<AMMUSTEN_VALI)
+        if (aikakoodi - edellisenAmmuksenAmpumisaika < AMMUSTEN_VALI) {
             return null;
-        double x, y;
-        x = Math.cos(Math.toRadians(this.suunta)) * 35.0;
-        x += this.x;
-        y = -Math.sin(Math.toRadians(this.suunta)) * 35.0;
-        y += this.y;
-        edellisenAmmuksenAmpumisaika=aikakoodi;
-        return(new Ammus((int) x, (int) y, this.suunta));
+        }
+        double ax, ay;
+        ax = Math.cos(Math.toRadians(this.suunta)) * 35.0;
+        ax += this.x;
+        ay = -Math.sin(Math.toRadians(this.suunta)) * 35.0;
+        ay += this.y;
+        edellisenAmmuksenAmpumisaika = aikakoodi;
+        return (new Ammus((int) ax, (int) ay, (int) this.suunta));
 
+    }
+
+    @Override
+    public int getX() {
+        return (int) this.x;
+    }
+
+    @Override
+    public int getY() {
+        return (int) this.y;
+    }
+
+    @Override
+    public void setX(int x) {
+        this.x = (double) x;
+    }
+
+    @Override
+    public void setY(int y) {
+        this.y = (double) y;
+    }
+    
+    public double laskeUusiNopeus(double pituus1, double suunta1, double pituus2, double suunta2) {
+        this.dx=pituus1*Math.cos(Math.toRadians(suunta1))+pituus2*Math.cos(Math.toRadians(suunta2));
+        this.dy=-pituus1*Math.sin(Math.toRadians(suunta1))-pituus2*Math.sin(Math.toRadians(suunta2));
+        return Math.sqrt(this.dx*this.dx+this.dy*this.dy);
+    }
+    
+    public double laskeUusiSuunta() {
+        System.out.println(this.dx + "; "+ this.dy);
+        double suunta;
+        suunta=Math.toDegrees(Math.atan(-this.dy/this.dx));
+        if(this.dx<0)
+            return suunta+180;
+        return suunta;
     }
 
 }

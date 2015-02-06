@@ -1,0 +1,25 @@
+#Koodikatselmointi 1 - Zanpaban#
+
+Projekti ladattu 3.2.2015 klo 05.07
+
+Ohjelma toimii ja on sen k‰yttˆliittym‰ on looginen, vaikka aluksi hieman h‰m‰‰v‰‰ on se, ett‰ sek‰ pelaajaa, laatikoita ja maaleja kuvaavat t‰sm‰lleen samanlaiset mutta eriv‰riset neliˆt.
+
+Ohjelmointitekninen toteutus on suurimmaksi osaksi mallikasta, ja selv‰sti on n‰hty vaivaa tiettyjen tyylin‰kˆkohtien eteen, esimerkkin‰ vaikkapa Ruutu-enumin k‰yttˆ. Luokkajako on p‰‰s‰‰ntˆisesti looginen, joskin muutama ohjelmointitekninen ratkaisu her‰tt‰‰ kysymyksi‰ siit‰, pit‰isikˆ esim. pelaajalle olla oma luokkansa, joka muistaisi sijaintinsa.
+
+##Huomioita##
+
+1. Tasot- ja Tasonluoja -luokkien v‰linen suhde ja tyˆnjako ei vaikuta aivan selke‰lt‰. Mieleen tulee, kannattaisiko toteuttaa Taso-luokka, josta luodaan tarvittava taso antamalla tason numero parametrina konstruktorille.
+
+2. Ratkaisu, jossa tason pohjapiirros siirret‰‰n yhten‰ pitk‰n‰ merkkijonona Tasonluojalle ei vaikuta optimaaliselta. Tason suunnittelu on tietysti helppoa String-muodossa, kun sen voi hahmottaa graafisena rivitt‰m‰ll‰ String sopivasti, kuten Taso-luokassa on tehty. Taso-luokka voisi itse hoitaa Stringin muunnoksen kaksiulotteiseksi taulukoksi, joka sitten v‰litet‰‰n eteenp‰in.
+
+3. Voisi olla hyv‰ idea lukea tasoihin liittyv‰ data tiedostosta sen sijaan, ett‰ se m‰‰ritell‰‰n suoraan ohjelmakoodissa.
+
+4. Tasonluoja-luokan konstruktorissa luodaan kolme uutta Tasot-luokan ilmentym‰‰, vaikka todellisuudessa tarvitaan vain yht‰. tasot = new Tasot(); -rivi kannattanee siirt‰‰ konstruktorin alkuun ja kutsua sitten tuon tasot-olion getLeveys()- ja getKorkeus()-metodeja.
+
+5. Tasonluoja-luokan getMaaliKoordinaatit-metodi palauttaa maaliruutujen koordinaatit merkkijonoja sis‰lt‰v‰n‰ ArrayListin‰, vaikka koordinaatit ovat kokonaislukuja. Loogisempi vaihtoehto olisi kaksiulotteinen int-taulukko, tai sitten oma Koordinaatti-luokka, jolla olisi oliomuuttujina x- ja y-koordinaatit ja niille getterit ja setterit.
+
+6. Pelit-luokan liikuta*-metodit sis‰lt‰v‰t melkoisen ehtolauseiden viidakon. Erityisen h‰mment‰v‰‰ on se, ett‰ ensimm‰iseen if-lauseeseen liittyv‰ blokki on tyhj‰ { }. T‰t‰ seuraa else if, jonka sis‰ll‰ on j‰lleen uusi if, jonka sis‰ll‰ viel‰ yksi if. Parempi ratkaisu olisi k‰sitell‰ kolme tapausta kaikki omina samantasoisina if-lauseenaan, eli ensimm‰inen if tutkisi, onko seuraava ruutu liikesuunnassa tyhj‰, tekisi tarvittavat toimenpiteet ja poistuisi heti metodista. Seuraava if-lause tutkisi, onko viereinen ruutu liikesuunnassa sein‰. Viimeisen‰ if-lauseena tutkittaisiin hankalin tapaus, eli se, ett‰ viereisess‰ ruudussa liikesuunnassa on laatikko. Ainoastaan t‰m‰ tapaus vaatii lis‰tarkistuksen, onko laatikon j‰lkeen vapaa ruutu vai ei.
+
+7. Pelit-luokka sis‰lt‰‰ muuttujat pelaajanX ja pelaajanY, joita ei kuitenkaan p‰ivitet‰ saman tien pelaajan liikkuessa, vaan niille haetaan uudet arvot getPelaajaX() ja getPelaajaY()-metodeilla. N‰m‰ metodit k‰yv‰t kahdella sis‰kk‰isell‰ silmukalla l‰pi koko pelilaudan lˆyt‰‰kseen pelaajan sijainnin. Selkint‰ olisi joko pit‰‰ muuttujat oliomuuttujat jatkuvasti ajan tasalla lis‰‰m‰ll‰ ja v‰hent‰m‰ll‰ niit‰ heti kun pelaaja liikkuu. Toinen mahdollisuus olisi luopua kokonaan muuttujista, ja viitata pelaajan koordinaatteihin joka paikassa gettereiden kautta. Kolmas vaihtoehto voisi tietysti olla oman pelaaja-luokan lis‰‰minen, joka tiet‰isi koordinaattinsa.
+
+8. Paneeli-luokan metodi uudelleenPiirraRuudut sis‰lt‰‰ if-else -rakenteen, jossa kummassakin tapauksessa suoritetaan t‰sm‰lleen sama koodirivi, eli if-else on tarpeeton.

@@ -36,6 +36,8 @@ public class Main {
 
 
         asteroidipeli.start();
+        
+        System.out.println("GAME OVER!");
 
     }
 

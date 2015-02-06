@@ -37,10 +37,10 @@ public class TormaystenKasittelija {
                     this.poistettavatAsteroidit.add(ast);
                     this.poistettavatAmmukset.add(a);
                     this.peli.getKirjanpitaja().kasvataPisteita(10);
-                    if (this.peli.getKirjanpitaja().getPisteet() % 100 == 0) {
+                    if (this.peli.getKirjanpitaja().getPisteet() % 200 == 0) {
                         this.peli.kasvataAsteroidienNopeutta();
                     }
-                    if (this.peli.getKirjanpitaja().getPisteet() % 100 == 0) {
+                    if (this.peli.getKirjanpitaja().getPisteet() % 200 == 0) {
                         korvaaviaAsteroideja++;
                     }
                 }
@@ -70,6 +70,14 @@ public class TormaystenKasittelija {
             y = p.ypoints;
             for (int i = 0; i < 3; i++) {
                 if (a.getAsteroidiPolygoni().contains(x[i], y[i])) {
+                    System.out.println("TÖRMÄYS!");
+                    System.out.println("Asteroidin koordinaatit: ");
+                    for(int t=0;t<a.getAsteroidiPolygoni().npoints;t++) {
+                        System.out.println(a.getAsteroidiPolygoni().xpoints[t] + ":" + a.getAsteroidiPolygoni().ypoints[t]);
+                        
+                    }
+                    System.out.println("Asteroidin koord:");
+                    System.out.println(x[i] + ":" + y[i]);
                     tormays = true;
                 }
             }
@@ -92,7 +100,7 @@ public class TormaystenKasittelija {
     }
     
     
-    public void hoidaReunanYlitykset(Asteroidi a, int reunuksenLeveys) {
+    public void hoidaReunanYlitykset(Liikkuva a, int reunuksenLeveys) {
         if (a.getX() > this.peli.getRuudunLeveys() + reunuksenLeveys) {
             a.setX(-reunuksenLeveys);
         }

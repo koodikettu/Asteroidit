@@ -34,7 +34,8 @@ public class Piirtoalusta extends JPanel {
 
         for(Asteroidi a:peli.getAsteroidilista()) {
            g.setColor(Color.BLACK);
-           g.drawPolygon(a.getAsteroidiPolygoni()); 
+           g.fillPolygon(a.getAsteroidiPolygoni()); 
+
         }
         
         for(Ammus a:peli.getAmmuslista()) {
@@ -57,6 +58,12 @@ public class Piirtoalusta extends JPanel {
         g.drawString(s, 10, 30);
         s="PISTEET: " + peli.getKirjanpitaja().getPisteet();
         g.drawString(s, 10, 50);
+//        s="SUUNTA: " + peli.getAlus().getSuunta();
+//        g.drawString(s, 10, 70);
+//        s="KULKUSUUNTA: " + peli.getAlus().getKulkusuunta();
+//        g.drawString(s, 10, 90);
+//        s="NOPEUS: " + peli.getAlus().getNopeus();
+//        g.drawString(s, 10, 110);
     }
 
     public void paivita() {

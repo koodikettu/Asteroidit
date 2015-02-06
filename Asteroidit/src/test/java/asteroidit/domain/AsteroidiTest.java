@@ -48,25 +48,26 @@ public class AsteroidiTest {
     // @Test
     // public void hello() {}
     @Test
-    public void arvotValittyvatOikein() {
-        Asteroidi asteroidi = new Asteroidi(1000, -30, -2.5, 1.0);
+    public void asteroidiAlustetaanOikeinKulmienMaara() {
 
-        asteroidi.laskePolygoni();
-        Polygon polygoni = asteroidi.getAsteroidiPolygoni();
 //        Polygon vertailupg = new Polygon();
 //        vertailupg.addPoint(1000, -10);
 //        vertailupg.addPoint(1025, 40);
 //        vertailupg.addPoint(990, 55);
 //        vertailupg.addPoint(964, 33);
+        for(int i=0;i<1000;i++) {
+            Asteroidi asteroidi = new Asteroidi(1000, -30, -2.5, 1.0, random);
+            asteroidi.laskePolygoni();
+            Polygon polygoni = asteroidi.getAsteroidiPolygoni();
+            assertEquals(true,polygoni.npoints>=4 && polygoni.npoints<=7);
+        }
 
-        assertEquals(polygoni.xpoints[3], 964);
-        assertEquals(polygoni.ypoints[1], -20);
     }
 
     @Test
-    public void paikkaAlustetaanOikein() {
+    public void paikkaAlustetaanOikeinX() {
         int x, y;
-        Asteroidi asteroidi = new Asteroidi(100, 100, 10, 5);
+        Asteroidi asteroidi = new Asteroidi(100, 100, 10, 5, random);
 
         for (int index = 0; index < 100; index++) {
             asteroidi.alusta(random, 100, 100, 10, 5);
@@ -74,12 +75,28 @@ public class AsteroidiTest {
             y=asteroidi.getY();
             if (y >= 0 && y <= 100) {
                 assertEquals(true, ((x >= -10 && x <= 0) || (x >= 100 && x <= 110)));
-                System.out.println(x + ", " + y);
+
             }
-            if (x >= 0 && x <= 100) {
-                assertEquals(true, ((y >= -10 && y <= 0) || (y >= 100 && y <= 110)));
-                System.out.println(x + ", " + y);
+
+
+        }
+
+    }
+    
+    
+    @Test
+    public void paikkaAlustetaanOikeinY() {
+        int x, y;
+        Asteroidi asteroidi = new Asteroidi(100, 100, 10, 5, random);
+
+        for (int index = 0; index < 100; index++) {
+            asteroidi.alusta(random, 100, 100, 10, 5);
+            x=asteroidi.getX();
+            y=asteroidi.getY();
+            if (y >= 0 && y <= 100) {
+                assertEquals(true, ((x >= -10 && x <= 0) || (x >= 100 && x <= 110)));
             }
+
 
         }
 

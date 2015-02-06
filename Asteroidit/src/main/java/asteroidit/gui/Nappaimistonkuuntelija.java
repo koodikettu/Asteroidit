@@ -30,20 +30,25 @@ public class Nappaimistonkuuntelija implements KeyListener {
     @Override
     public void keyPressed(KeyEvent ke) {
         if(ke.getKeyCode()==KeyEvent.VK_LEFT) {
-            this.peli.nappaimistonTila(1,-1,-1);
+            this.peli.nappaimistonTila(1,-1,-1,-1,-1);
 
         }
         if(ke.getKeyCode()==KeyEvent.VK_RIGHT) {
-            this.peli.nappaimistonTila(-1,1,-1);
+            this.peli.nappaimistonTila(-1,1,-1,-1,-1);
         }
         if(ke.getKeyCode()==KeyEvent.VK_UP) {
-
+            this.peli.nappaimistonTila(-1,-1,1,-1,-1);
         }
         if(ke.getKeyCode()==KeyEvent.VK_DOWN) {
-
+             this.peli.nappaimistonTila(-1,-1,-1,1,-1);
         }
+        
+
         if(ke.getKeyCode()==KeyEvent.VK_SPACE) {
-            this.peli.nappaimistonTila(-1,-1,1);
+            this.peli.nappaimistonTila(-1,-1,-1,-1,1);
+        }
+        if(ke.getKeyCode()==KeyEvent.VK_C) {
+            this.peli.getAsteroidilista().clear();
         }
     }
     
@@ -72,20 +77,20 @@ public class Nappaimistonkuuntelija implements KeyListener {
     @Override
     public void keyReleased(KeyEvent ke) {
         if(ke.getKeyCode()==KeyEvent.VK_LEFT) {
-            this.peli.nappaimistonTila(0,-1,-1);
+            this.peli.nappaimistonTila(0,-1,-1,-1,-1);
 
         }
         if(ke.getKeyCode()==KeyEvent.VK_RIGHT) {
-            this.peli.nappaimistonTila(-1,0,-1);
+            this.peli.nappaimistonTila(-1,0,-1,-1,-1);
         }
         if(ke.getKeyCode()==KeyEvent.VK_UP) {
-
+            this.peli.nappaimistonTila(-1,-1,0,-1,-1);
         }
         if(ke.getKeyCode()==KeyEvent.VK_DOWN) {
-
+            this.peli.nappaimistonTila(-1,-1,-1,0,-1);
         }
         if(ke.getKeyCode()==KeyEvent.VK_SPACE) {
-            this.peli.nappaimistonTila(-1,-1,0);
+            this.peli.nappaimistonTila(-1,-1,-1,-1,0);
         }
     }
     
