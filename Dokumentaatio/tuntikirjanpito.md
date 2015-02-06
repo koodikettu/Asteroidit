@@ -11,3 +11,7 @@
 29.1.2015  5h  Toteutettu ampumistoiminnallisuus ja siihen liittyv‰ luokka, paranneltu toimintaa ja refaktoroitu runsaasti
 
 30.1.2015  3h  Paranneltu koodia. Muokattu testej‰ vastaamaan refaktorointeja. P‰ivitetty luokkakaaviota.
+
+5.2.2015   5h  Toteutettu avaruusaluksen liikkumistoiminnallisuus. Muutettu asteroidien luomista siten, ett‰ niiden muoto ja koko m‰‰r‰ytyy satunnaisesti asetetuissa rajoissa.
+
+6.2.2014   3h  P‰ivitetty testej‰, luokkakaaviota aloitettu Javadoc.
