@@ -18,8 +18,8 @@ public class Asteroidi implements Liikkuva {
 
     private double x, y;
     private double dx, dy;
-    private final int KULMIEN_MINIMIMAARA = 4;
-    private final int KULMIEN_MAKSIMIMAARA = 7;
+    private final int KULMIEN_MINIMIMAARA = 5;
+    private final int KULMIEN_MAKSIMIMAARA = 9;
     private final int KULMAN_VAIHTELU = 15;
     private final int SADE_MIN = 25;
     private final int SADE_MAX = 60;

@@ -8,7 +8,7 @@ package asteroidit.domain;
 import asteroidit.domain.Alus;
 import asteroidit.domain.Ammus;
 import asteroidit.domain.Asteroidi;
-import asteroidit.domain.TormaystenKasittelija;
+import asteroidit.logiikka.TormaystenKasittelija;
 import asteroidit.peli.Asteroidipeli;
 import org.junit.After;
 import org.junit.AfterClass;

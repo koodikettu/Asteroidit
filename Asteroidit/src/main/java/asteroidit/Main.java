@@ -34,10 +34,11 @@ public class Main {
         }
 
         asteroidipeli.setPiirtoalusta(kayttoliittyma.getPiirtoalusta());
+        asteroidipeli.setYlapaneeli(kayttoliittyma.getYlapaneeli());
 
         asteroidipeli.start();
 
-        System.out.println("GAME OVER!");
+        
 
     }
 

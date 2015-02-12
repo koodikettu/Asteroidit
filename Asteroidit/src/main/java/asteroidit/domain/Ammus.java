@@ -14,7 +14,7 @@ import java.awt.Polygon;
  */
 public class Ammus {
 
-    private static double AMMUKSEN_NOPEUS = 5;
+    private static double AMMUKSEN_NOPEUS = 8;
     private double x, y, dx, dy;
     private int suunta;
 

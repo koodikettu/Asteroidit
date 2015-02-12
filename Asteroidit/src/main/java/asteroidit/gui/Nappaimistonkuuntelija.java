@@ -51,6 +51,13 @@ public class Nappaimistonkuuntelija implements KeyListener {
         if (ke.getKeyCode() == KeyEvent.VK_C) {
             this.peli.getAsteroidilista().clear();
         }
+        if (ke.getKeyCode() == KeyEvent.VK_S) {
+            this.peli.getKirjanpitaja().setTila(-2);
+        }
+        if (ke.getKeyCode() == KeyEvent.VK_Q) {
+            this.peli.getKirjanpitaja().setTila(-3);
+        }
+
     }
 
 //    @Override

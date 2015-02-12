@@ -8,9 +8,10 @@ package asteroidit.peli;
 import asteroidit.domain.Alus;
 import asteroidit.domain.Ammus;
 import asteroidit.domain.Asteroidi;
-import asteroidit.domain.Kirjanpitaja;
-import asteroidit.domain.TormaystenKasittelija;
+import asteroidit.logiikka.Kirjanpitaja;
+import asteroidit.logiikka.TormaystenKasittelija;
 import asteroidit.gui.Piirtoalusta;
+import asteroidit.gui.Ylapaneeli;
 import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,11 +27,12 @@ import javax.swing.Timer;
  */
 public class Asteroidipeli extends Timer implements ActionListener {
 
-    private final int REUNUKSEN_LEVEYS = 25;
+    private final int REUNUKSEN_LEVEYS = 20;
     private final int PAIVITYSVALI = 20;
+    private final int ASTEROIDIEN_ALKUNOPEUS = 2;
     private int ruudunLeveys;
     private int ruudunKorkeus;
-    private int asteroidienNopeus = 2;
+    private int asteroidienNopeus = ASTEROIDIEN_ALKUNOPEUS;
     private Alus alus;
     private boolean vasenNuolinappain;
     private boolean oikeaNuolinappain;
@@ -46,6 +48,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
     private ArrayList<Ammus> ammuslista = new ArrayList<Ammus>();
     private ArrayList<Ammus> poistettavatAmmukset = new ArrayList<Ammus>();
     private Piirtoalusta piirtoalusta;
+    private Ylapaneeli ylapaneeli;
     private Kirjanpitaja kirjanpitaja;
     private TormaystenKasittelija tormaystenKasittelija;
 
@@ -71,7 +74,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
         }
 
         addActionListener(this);
-        setInitialDelay(1000);
+        setInitialDelay(PAIVITYSVALI);
     }
 
     public int getRuudunLeveys() {
@@ -102,6 +105,22 @@ public class Asteroidipeli extends Timer implements ActionListener {
         a = new Asteroidi(0, 0, 0, 0, random);
         a.alusta(random, ruudunLeveys, ruudunKorkeus, REUNUKSEN_LEVEYS, asteroidienNopeus);
         this.asteroidilista.add(a);
+    }
+
+    public void aloitaAlusta() {
+        this.asteroidilista.clear();
+        this.kirjanpitaja = new Kirjanpitaja(1);
+        this.tormaystenKasittelija = new TormaystenKasittelija(this);
+        this.alus = new Alus(this.ruudunLeveys / 2, this.ruudunKorkeus / 2, 90);
+        this.alus.laskeAlusPolygoni();
+        this.asteroidienNopeus = ASTEROIDIEN_ALKUNOPEUS;
+        this.ammuslista.clear();
+        this.uudetAsteroidit.clear();
+        for (int index = 0; index < 4; index++) {
+            this.a = new Asteroidi(0, 0, 0, 0, this.random);
+            this.a.alusta(this.random, this.ruudunLeveys, this.ruudunKorkeus, this.ruudunLeveys, asteroidienNopeus);
+            this.asteroidilista.add(a);
+        }
     }
 
     public void nappaimistonTila(int vNuoli, int oNuoli, int yNuoli, int aNuoli, int vLyonti) {
@@ -156,6 +175,10 @@ public class Asteroidipeli extends Timer implements ActionListener {
     public void setPiirtoalusta(Piirtoalusta piirtoalusta) {
         this.piirtoalusta = piirtoalusta;
     }
+    
+    public void setYlapaneeli(Ylapaneeli ylapaneeli) {
+        this.ylapaneeli = ylapaneeli;
+    }
 
     public void uusiAmmus(int x, int y, int suunta) {
         this.ammuslista.add(new Ammus(x, y, suunta));
@@ -164,57 +187,67 @@ public class Asteroidipeli extends Timer implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (oikeaNuolinappain) {
-            alus.kaanna(-1);
-        }
-        if (vasenNuolinappain) {
-            alus.kaanna(1);
-        }
-        if (valilyonti) {
-            Ammus a = this.alus.ammu();
-            if (a != null) {
-                this.ammuslista.add(a);
+        if (kirjanpitaja.getTila() > 0) {
+
+            if (oikeaNuolinappain) {
+                alus.kaanna(-1);
             }
-        }
-        if (ylosNuolinappain) {
-            getAlus().kiihdyta(true);
-        }
-        if (alasNuolinappain) {
-            getAlus().kiihdyta(false);
-        }
-        for (Asteroidi a : this.uudetAsteroidit) {
-            this.asteroidilista.add(a);
-        }
-        this.uudetAsteroidit.clear();
+            if (vasenNuolinappain) {
+                alus.kaanna(1);
+            }
+            if (valilyonti) {
+                Ammus a = this.alus.ammu();
+                if (a != null) {
+                    this.ammuslista.add(a);
+                }
+            }
+            if (ylosNuolinappain) {
+                getAlus().kiihdyta(true);
+            }
+            if (alasNuolinappain) {
+                getAlus().kiihdyta(false);
+            }
+            for (Asteroidi a : this.uudetAsteroidit) {
+                this.asteroidilista.add(a);
+            }
+            this.uudetAsteroidit.clear();
 
-        for (Asteroidi a : this.asteroidilista) {
-            a.liiku();
-            tormaystenKasittelija.hoidaReunanYlitykset(a, REUNUKSEN_LEVEYS);
-            a.laskePolygoni();
+            for (Asteroidi a : this.asteroidilista) {
+                a.liiku();
+                tormaystenKasittelija.hoidaReunanYlitykset(a, REUNUKSEN_LEVEYS);
+                a.laskePolygoni();
 
-        }
-
-        for (Ammus a : this.ammuslista) {
-            a.liiku();
-            if (!tormaystenKasittelija.onRuudulla(a)) {
-                this.poistettavatAmmukset.add(a);
             }
 
-        }
-        for (Ammus a : this.poistettavatAmmukset) {
-            this.ammuslista.remove(a);
-        }
-        alus.liiku();
-        tormaystenKasittelija.hoidaReunanYlitykset(alus, 0);
-        tormaystenKasittelija.tutkiTormaykset(this.ammuslista, this.asteroidilista);
-        tormaystenKasittelija.tutkiAluksenTormaykset(this.asteroidilista);
-        this.poistettavatAmmukset.clear();
+            for (Ammus a : this.ammuslista) {
+                a.liiku();
+                if (!tormaystenKasittelija.onRuudulla(a)) {
+                    this.poistettavatAmmukset.add(a);
+                }
 
-        alus.laskeAlusPolygoni();
-        piirtoalusta.paivita();
+            }
+            for (Ammus a : this.poistettavatAmmukset) {
+                this.ammuslista.remove(a);
+            }
+            alus.liiku();
+            tormaystenKasittelija.hoidaReunanYlitykset(alus, 0);
+            tormaystenKasittelija.tutkiTormaykset(this.ammuslista, this.asteroidilista);
+            tormaystenKasittelija.tutkiAluksenTormaykset(this.asteroidilista);
+            this.poistettavatAmmukset.clear();
 
-        if (this.kirjanpitaja.getTila() == -1) {
-            this.stop();
+            alus.laskeAlusPolygoni();
+            piirtoalusta.paivita();
+            ylapaneeli.paivita();
+        }
+        if (this.kirjanpitaja.getTila() < 0) {
+
+            if (this.kirjanpitaja.getTila()==-2) {
+                this.aloitaAlusta();
+            }
+            if (this.kirjanpitaja.getTila()==-3)
+                System.exit(0);
+
+
         }
 
         setDelay(PAIVITYSVALI);

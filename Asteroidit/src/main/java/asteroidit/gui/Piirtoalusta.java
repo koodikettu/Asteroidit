@@ -10,6 +10,7 @@ import asteroidit.domain.Asteroidi;
 import asteroidit.peli.Asteroidipeli;
 import java.awt.Color;
 import java.awt.Graphics;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -26,7 +27,6 @@ public class Piirtoalusta extends JPanel {
 
     public Piirtoalusta(Asteroidipeli a) {
         this.peli = a;
-
     }
 
     @Override
@@ -46,25 +46,8 @@ public class Piirtoalusta extends JPanel {
 
         g.setColor(Color.RED);
 
-        status = peli.getKirjanpitaja().getTila();
-        if (status == 0 || status == -1) {
-            g.drawString("PELI LOPPUI", 150, 150);
-        }
-
         g.fillPolygon(peli.getAlus().getAlusPolygoni());
-        g.setColor(Color.DARK_GRAY);
-        s = "Asteroidien määrä: " + peli.getAsteroidienMaara();
-        g.drawString(s, 10, 10);
-        s = "Ammusten määrä: " + peli.getAmmustenMaara();
-        g.drawString(s, 10, 30);
-        s = "PISTEET: " + peli.getKirjanpitaja().getPisteet();
-        g.drawString(s, 10, 50);
-//        s="SUUNTA: " + peli.getAlus().getSuunta();
-//        g.drawString(s, 10, 70);
-//        s="KULKUSUUNTA: " + peli.getAlus().getKulkusuunta();
-//        g.drawString(s, 10, 90);
-//        s="NOPEUS: " + peli.getAlus().getNopeus();
-//        g.drawString(s, 10, 110);
+
     }
 
     public void paivita() {

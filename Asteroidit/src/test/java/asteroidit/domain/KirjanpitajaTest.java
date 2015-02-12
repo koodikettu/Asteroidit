@@ -5,7 +5,7 @@
  */
 package asteroidit.domain;
 
-import asteroidit.domain.Kirjanpitaja;
+import asteroidit.logiikka.Kirjanpitaja;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

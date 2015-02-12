@@ -6,8 +6,10 @@
 package asteroidit.gui;
 
 import asteroidit.peli.Asteroidipeli;
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -20,23 +22,30 @@ public class Kayttoliittyma implements Runnable {
 
     private JFrame frame;
     private Asteroidipeli peli;
+    
+    private int ruudunLeveys;
+    private int ruudunKorkeus;
 
     private Piirtoalusta piirtoalusta;
+    private Ylapaneeli ylapaneeli;
 
     public Kayttoliittyma(Asteroidipeli asteroidipeli) {
         super();
         this.peli = asteroidipeli;
+        
+        frame = new JFrame("Asteroidit");
+        ruudunLeveys = peli.getRuudunLeveys();
+        ruudunKorkeus = peli.getRuudunKorkeus()+80;
+        frame.setLayout(new BorderLayout(0, 0));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(ruudunLeveys, ruudunKorkeus));
+
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     @Override
     public void run() {
-        frame = new JFrame("Asteroidit");
-        int ruudunLeveys = peli.getRuudunLeveys();
-        int ruudunKorkeus = peli.getRuudunKorkeus();
-
-        frame.setPreferredSize(new Dimension(ruudunLeveys, ruudunKorkeus));
-
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        
 
         luoKomponentit(frame.getContentPane());
 
@@ -45,17 +54,24 @@ public class Kayttoliittyma implements Runnable {
     }
 
     public void luoKomponentit(Container container) {
-        // Huom! Luo ensin piirtoalusta jonka lisäät container-olioon
-        // Luo vasta tämän jälkeen näppäimistönkuuntelija, jonka lisäät frame-oliolle
         this.piirtoalusta = new Piirtoalusta(this.peli);
-        container.add(this.piirtoalusta);
-
+        
+        this.ylapaneeli = new Ylapaneeli(this.peli);
+        ylapaneeli.setPreferredSize(new Dimension(this.ruudunLeveys, 80));
+        ylapaneeli.paivita();
+        
+        container.add(ylapaneeli, BorderLayout.NORTH);
+        container.add(this.piirtoalusta, BorderLayout.CENTER);
         frame.addKeyListener(new Nappaimistonkuuntelija(this.peli));
 
     }
 
     public Piirtoalusta getPiirtoalusta() {
         return this.piirtoalusta;
+    }
+    
+    public Ylapaneeli getYlapaneeli() {
+        return this.ylapaneeli;
     }
 
     public JFrame getFrame() {
