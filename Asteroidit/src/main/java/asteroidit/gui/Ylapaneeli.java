@@ -13,7 +13,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 /**
- *
+ * Luokka sisältää pelin käyttöliittymän yläosassa olevan paneelin, jossa mm. pisteet.
  * @author Markku
  */
 public class Ylapaneeli extends JPanel {
