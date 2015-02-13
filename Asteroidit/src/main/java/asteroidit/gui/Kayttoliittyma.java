@@ -28,6 +28,7 @@ public class Kayttoliittyma implements Runnable {
 
     private Piirtoalusta piirtoalusta;
     private Ylapaneeli ylapaneeli;
+    private Nappaimistonkuuntelija nk;
 
     public Kayttoliittyma(Asteroidipeli asteroidipeli) {
         super();
@@ -62,8 +63,13 @@ public class Kayttoliittyma implements Runnable {
         
         container.add(ylapaneeli, BorderLayout.NORTH);
         container.add(this.piirtoalusta, BorderLayout.CENTER);
-        frame.addKeyListener(new Nappaimistonkuuntelija(this.peli));
+        nk=new Nappaimistonkuuntelija(this.peli);
+        frame.addKeyListener(nk);
 
+    }
+    
+    public Nappaimistonkuuntelija getNappaimistonkuuntelija() {
+        return nk;
     }
 
     public Piirtoalusta getPiirtoalusta() {

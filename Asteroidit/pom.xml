@@ -43,10 +43,7 @@
                     <targetClasses>
                         <param>asteroidit.peli.*</param>
                         <param>asteroidit.domain.*</param>
-                    </targetClasses>
-                    <targetClasses>
-                        <param>asteroidit.peli.*</param>
-                        <param>asteroidit.domain.*</param>
+                        <param>asteroidit.logiikka.*</param>
                     </targetClasses>
                 </configuration>
             </plugin>

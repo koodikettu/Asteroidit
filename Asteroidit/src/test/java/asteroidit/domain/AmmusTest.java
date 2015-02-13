@@ -47,13 +47,13 @@ public class AmmusTest {
     public void vaakaliike() {
         Ammus ammus = new Ammus(100,100,0);
         ammus.liiku();
-        assertEquals(105, ammus.getX());
+        assertEquals(108, ammus.getX());
     }
     
     @Test
     public void pystyliike() {
         Ammus ammus = new Ammus(100,100,270);
         ammus.liiku();
-        assertEquals(105, ammus.getY());
+        assertEquals(108, ammus.getY());
     }
 }

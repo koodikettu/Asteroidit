@@ -27,8 +27,7 @@ public class Alus implements Liikkuva {
     private final double HIDASTUMISVAKIO = 0.1;
     private Asteroidipeli peli;
     private long edellisenAmmuksenAmpumisaika = -1;
-
-    Polygon alus_polygoni = new Polygon();
+    private Polygon alusPolygoni;
 
     public Alus(int x, int y, int suunta) {
         this.x = (double) x;
@@ -37,6 +36,10 @@ public class Alus implements Liikkuva {
         this.peli = peli;
         this.nopeus = 0;
         this.kulkusuunta = suunta;
+
+        this.alusPolygoni = new Polygon();
+
+        
 
     }
 
@@ -109,40 +112,38 @@ public class Alus implements Liikkuva {
     public double getNopeus() {
         return this.nopeus;
     }
+    
 
     /**
      * Metodi laskee aluksen kärkipisteet sisältävän polygonin aluksen sijainnin
      * perusteella.
      */
     public void laskeAlusPolygoni() {
-        alus_polygoni.reset();
+        
         double x1, y1;
-
-        double radiaanit;
-        radiaanit = Math.toRadians(this.suunta);
         double apu = Math.toRadians(150);
-        // kärkikulma
-        x1 = Math.cos(radiaanit) * 30.0;
-        x1 += this.x;
-        y1 = -Math.sin(radiaanit) * 30.0;
-        y1 += this.y;
-        alus_polygoni.addPoint((int) Math.round(x1), (int) Math.round(y1));
+        double radiaanit = Math.toRadians(this.suunta);
+
+        alusPolygoni.reset();
+           
+        // keulakulma
+        x1 = Math.cos(radiaanit) * 30.0 + this.x;
+        y1 = -Math.sin(radiaanit) * 30.0 + this.y;
+        alusPolygoni.addPoint((int) Math.round(x1), (int) Math.round(y1));
+        
         // vasen kulma
-        x1 = Math.cos(radiaanit + apu) * 30.0;
-        x1 += this.x;
-        y1 = -Math.sin(radiaanit + apu) * 30.0;
-        y1 += this.y;
-        alus_polygoni.addPoint((int) Math.round(x1), (int) Math.round(y1));
+        x1 = Math.cos(radiaanit + apu) * 30.0 + this.x;
+        y1 = -Math.sin(radiaanit + apu) * 30.0 + this.y;
+        alusPolygoni.addPoint((int) Math.round(x1), (int) Math.round(y1));
+        
         // oikea kulma
-        x1 = Math.cos(radiaanit - apu) * 30.0;
-        x1 += this.x;
-        y1 = -Math.sin(radiaanit - apu) * 30.0;
-        y1 += this.y;
-        alus_polygoni.addPoint((int) Math.round(x1), (int) Math.round(y1));
+        x1 = Math.cos(radiaanit - apu) * 30.0 + this.x;
+        y1 = -Math.sin(radiaanit - apu) * 30.0 + this.y;
+        alusPolygoni.addPoint((int) Math.round(x1), (int) Math.round(y1));
     }
 
     public Polygon getAlusPolygoni() {
-        return alus_polygoni;
+        return alusPolygoni;
     }
 
     /**

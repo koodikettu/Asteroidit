@@ -15,3 +15,7 @@
 5.2.2015   5h  Toteutettu avaruusaluksen liikkumistoiminnallisuus. Muutettu asteroidien luomista siten, ett‰ niiden muoto ja koko m‰‰r‰ytyy satunnaisesti asetetuissa rajoissa.
 
 6.2.2014   3h  P‰ivitetty testej‰, luokkakaaviota aloitettu Javadoc.
+
+12.2.2014  6h  Toteutettu yl‰paneeli-luokka. Paranneltu koodia.
+
+13.2.2014  3h  P‰ivitetty testej‰ vastaamaan muutoksia. Dokumentointia.

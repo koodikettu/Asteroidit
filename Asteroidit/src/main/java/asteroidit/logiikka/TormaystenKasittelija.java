@@ -11,6 +11,7 @@ import asteroidit.domain.Liikkuva;
 import asteroidit.peli.Asteroidipeli;
 import java.awt.Polygon;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Luokka sisältää metodit, joilla käsitellään ruudulla liikkuvien kohteiden
@@ -25,6 +26,7 @@ public class TormaystenKasittelija {
     private ArrayList<Ammus> poistettavatAmmukset = new ArrayList<Ammus>();
     private ArrayList<Asteroidi> uudetAsteroidit = new ArrayList<Asteroidi>();
     private Asteroidi asteroidi;
+    private int korvaaviaAsteroideja = 0;
 
     public TormaystenKasittelija(Asteroidipeli peli) {
         this.peli = peli;
@@ -40,7 +42,6 @@ public class TormaystenKasittelija {
      */
     public void tutkiTormaykset(ArrayList<Ammus> ammuslista, ArrayList<Asteroidi> asteroidilista) {
         int x, y;
-        int korvaaviaAsteroideja = 0;
 
         for (Ammus a : ammuslista) {
             x = a.getX();
@@ -51,14 +52,16 @@ public class TormaystenKasittelija {
                     this.poistettavatAmmukset.add(a);
                     this.peli.getKirjanpitaja().kasvataPisteita(10);
                     if (this.peli.getKirjanpitaja().getPisteet() % 200 == 0) {
-                        this.peli.kasvataAsteroidienNopeutta();
-                    }
-                    if (this.peli.getKirjanpitaja().getPisteet() % 200 == 0) {
                         korvaaviaAsteroideja++;
                     }
                 }
             }
         }
+        poistaPoistettavat(ammuslista, asteroidilista);
+
+    }
+
+    public void poistaPoistettavat(ArrayList<Ammus> ammuslista, ArrayList<Asteroidi> asteroidilista) {
         for (Asteroidi ast : this.poistettavatAsteroidit) {
             asteroidilista.remove(ast);
             korvaaviaAsteroideja++;
@@ -69,9 +72,9 @@ public class TormaystenKasittelija {
         for (int i = 0; i < korvaaviaAsteroideja; i++) {
             this.peli.uusiAsteroidi();
         }
+        this.korvaaviaAsteroideja=0;
         this.poistettavatAsteroidit.clear();
         this.poistettavatAmmukset.clear();
-
     }
 
     /**
@@ -80,7 +83,7 @@ public class TormaystenKasittelija {
      *
      * @param asteroidilista lista pelissä olevista asteroideista
      */
-    public void tutkiAluksenTormaykset(ArrayList<Asteroidi> asteroidilista) {
+    public boolean tutkiAluksenTormaykset(ArrayList<Asteroidi> asteroidilista) {
         Polygon p = this.peli.getAlus().getAlusPolygoni();
         boolean tormays = false;
         int[] x = new int[3];
@@ -106,6 +109,7 @@ public class TormaystenKasittelija {
         if (tormays) {
             this.peli.getKirjanpitaja().setTila(-1);
         }
+        return tormays;
     }
 
     /**
@@ -130,7 +134,8 @@ public class TormaystenKasittelija {
      * ruudulta. Jos näin on, se siirtää olion ruudun vastakkaiselle puolelle.
      *
      * @param a Liikkuva-rajapinnan toteuttava olio.
-     * @param reunuksenLeveys pelin käyttämän ikkunan ulkopuolelle jäävän reuna-alueen leveys
+     * @param reunuksenLeveys pelin käyttämän ikkunan ulkopuolelle jäävän
+     * reuna-alueen leveys
      */
     public void hoidaReunanYlitykset(Liikkuva a, int reunuksenLeveys) {
         if (a.getX() > this.peli.getRuudunLeveys() + reunuksenLeveys) {
@@ -145,6 +150,10 @@ public class TormaystenKasittelija {
         if (a.getY() < -reunuksenLeveys) {
             a.setY(this.peli.getRuudunKorkeus() + reunuksenLeveys);
         }
+    }
+    
+    public ArrayList<Asteroidi> getPoistettavat() {
+        return this.poistettavatAsteroidit;
     }
 
 }

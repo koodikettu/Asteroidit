@@ -37,9 +37,9 @@ public class Ylapaneeli extends JPanel {
         status = peli.getKirjanpitaja().getTila();
         if (status == 0 || status == -1) {
             g.setColor(Color.BLACK);
-            g.drawString("PELI LOPPUI", 150, 20);
-            g.drawString("PAINA S ALOITTAAKSESI UUDEN PELIN", 150, 40);
-            g.drawString("PAINA Q LOPETTAAKSESI", 150, 60);
+            g.drawString("PELI LOPPUI", 250, 20);
+            g.drawString("PAINA S ALOITTAAKSESI UUDEN PELIN", 250, 40);
+            g.drawString("PAINA Q LOPETTAAKSESI", 250, 60);
         }
 
         g.setColor(Color.DARK_GRAY);

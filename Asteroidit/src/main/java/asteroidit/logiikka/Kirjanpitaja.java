@@ -5,6 +5,8 @@
  */
 package asteroidit.logiikka;
 
+import asteroidit.peli.Asteroidipeli;
+
 /**
  * Luokka sisältää pelin tilaan liittyvän tiedon käsittelyyn tarvittavat
  * metodit.
@@ -15,14 +17,19 @@ public class Kirjanpitaja {
 
     private int pisteet;
     private int tila;
+    private Asteroidipeli peli;
 
-    public Kirjanpitaja(int tila) {
+    public Kirjanpitaja(int tila, Asteroidipeli peli) {
         this.pisteet = 0;
         this.tila = tila;
+        this.peli = peli;
     }
 
     public void kasvataPisteita(int n) {
         this.pisteet += n;
+        if (this.pisteet % 200 == 0) {
+            this.peli.kasvataAsteroidienNopeutta();
+        }
     }
 
     public int getPisteet() {
@@ -36,10 +43,10 @@ public class Kirjanpitaja {
     public void setTila(int tila) {
         this.tila = tila;
     }
-    
+
     public void reset() {
-        this.tila=0;
-        this.pisteet=0;
+        this.tila = 0;
+        this.pisteet = 0;
     }
 
 }

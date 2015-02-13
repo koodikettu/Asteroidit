@@ -59,7 +59,7 @@ public class AsteroidiTest {
             Asteroidi asteroidi = new Asteroidi(1000, -30, -2.5, 1.0, random);
             asteroidi.laskePolygoni();
             Polygon polygoni = asteroidi.getAsteroidiPolygoni();
-            assertEquals(true,polygoni.npoints>=4 && polygoni.npoints<=7);
+            assertEquals(true,polygoni.npoints>=5 && polygoni.npoints<=9);
         }
 
     }
