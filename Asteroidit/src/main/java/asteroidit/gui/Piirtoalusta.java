@@ -28,6 +28,11 @@ public class Piirtoalusta extends JPanel {
     public Piirtoalusta(Asteroidipeli a) {
         this.peli = a;
     }
+    
+    /**
+     * Metodi piirtää pelitilanteen.
+     * @param g Graphics-olio
+     */
 
     @Override
     public void paintComponent(Graphics g) {
@@ -49,6 +54,10 @@ public class Piirtoalusta extends JPanel {
         g.fillPolygon(peli.getAlus().getAlusPolygoni());
 
     }
+    
+    /**
+     * Metodi päivittää pelitilanteen ruudulle.
+     */
 
     public void paivita() {
         super.repaint();

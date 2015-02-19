@@ -85,10 +85,17 @@ public class Asteroidi implements Liikkuva {
     /**
      * Metodi liikuttaa asteroidia sen nopeuden mukaisesti.
      */
-
     public void liiku() {
         this.x += dx;
         this.y += dy;
+    }
+
+    public void setDx(float dx) {
+        this.dx = dx;
+    }
+
+    public void setDy(float dy) {
+        this.dy = dy;
     }
 
     @Override

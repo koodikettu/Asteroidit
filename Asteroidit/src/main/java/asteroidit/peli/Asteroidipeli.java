@@ -43,8 +43,6 @@ public class Asteroidipeli extends Timer implements ActionListener {
     Random random;
 
     private ArrayList<Asteroidi> asteroidilista = new ArrayList<Asteroidi>();
-    private ArrayList<Asteroidi> poistettavatAsteroidit = new ArrayList<Asteroidi>();
-    private ArrayList<Asteroidi> uudetAsteroidit = new ArrayList<Asteroidi>();
     private ArrayList<Ammus> ammuslista = new ArrayList<Ammus>();
     private ArrayList<Ammus> poistettavatAmmukset = new ArrayList<Ammus>();
     private Piirtoalusta piirtoalusta;
@@ -97,24 +95,34 @@ public class Asteroidipeli extends Timer implements ActionListener {
         return this.random;
     }
 
+    /**
+     * Metodi kasvattaa asteroidien nopeutta. Vaikutus ulottuu vain
+     * tulevaisuudessa luotaviin uusiin asteroideihin.
+     */
     public void kasvataAsteroidienNopeutta() {
         this.asteroidienNopeus++;
     }
-    
+
     public int getAsteroidienNopeus() {
         return this.asteroidienNopeus;
     }
 
+    /**
+     * Metodi luo uuden asteroidin muodon ja alustaa sille alkusijainnin.
+     */
     public void uusiAsteroidi() {
         a = new Asteroidi(0, 0, 0, 0, random);
         a.alusta(random, ruudunLeveys, ruudunKorkeus, REUNUKSEN_LEVEYS, asteroidienNopeus);
         this.asteroidilista.add(a);
     }
 
+    /**
+     * Metodi palauttaa pelin alkuasetelmaan.
+     */
     public void aloitaAlusta() {
         this.asteroidilista.clear();
         this.ammuslista.clear();
-        this.uudetAsteroidit.clear();
+
 
         this.kirjanpitaja = new Kirjanpitaja(1, this);
         this.tormaystenKasittelija = new TormaystenKasittelija(this);
@@ -129,6 +137,17 @@ public class Asteroidipeli extends Timer implements ActionListener {
         }
     }
 
+    /**
+     * Metodi välittää Näppäimistönkuuntelija-oliolta näppäinten tilojen
+     * muutokset Asteroidipeli-olioon.
+     *
+     * @param vNuoli Vasemman nuolinäppäimen tila, 1 = painettu, 0 = vapautettu,
+     * -1 = ei muutosta
+     * @param oNuoli Oikean nuoinäppäimen tila
+     * @param yNuoli Nuoli ylöspäin -näppäimen tila
+     * @param aNuoli Nuoli alaspäin -näppäimen tila
+     * @param vLyonti
+     */
     public void nappaimistonTila(int vNuoli, int oNuoli, int yNuoli, int aNuoli, int vLyonti) {
         if (vNuoli == 1) {
             this.vasenNuolinappain = true;
@@ -166,16 +185,13 @@ public class Asteroidipeli extends Timer implements ActionListener {
         return this.asteroidilista;
     }
 
-    public int getAmmustenMaara() {
-        return this.ammuslista.size();
-    }
-
-    public int getAsteroidienMaara() {
-        return this.asteroidilista.size();
-    }
 
     public ArrayList<Ammus> getAmmuslista() {
         return this.ammuslista;
+    }
+    
+        public ArrayList<Ammus> getPoistettavatAmmukset() {
+        return this.poistettavatAmmukset;
     }
 
     public void setPiirtoalusta(Piirtoalusta piirtoalusta) {
@@ -185,11 +201,29 @@ public class Asteroidipeli extends Timer implements ActionListener {
     public void setYlapaneeli(Ylapaneeli ylapaneeli) {
         this.ylapaneeli = ylapaneeli;
     }
+    
+    public TormaystenKasittelija getTormaystenKasittelija() {
+        return this.tormaystenKasittelija;
+    }
 
+    /**
+     * Metodi luo uuden Ammus-luokan olion, jolla on annetut koordinaatit ja
+     * liikesuunta.
+     *
+     * @param x Uuden ammuksen x-koordinaatti.
+     * @param y Uuden ammuksen y-koordinaatti.
+     * @param suunta Uuden ammuksen suunta asteina.
+     */
     public void uusiAmmus(int x, int y, int suunta) {
         this.ammuslista.add(new Ammus(x, y, suunta));
     }
 
+    /**
+     * Metodi tekee näppäimistön tilan mukaiset muutokset aluksen tilaan,
+     * liikuttaa alusta, tarkistaa aluksen törmäykset sekä laskee aluksen uudet
+     * koordinaatit.
+     *
+     */
     public void aluksenHallinta() {
         if (oikeaNuolinappain) {
             alus.kaanna(-1);
@@ -211,51 +245,26 @@ public class Asteroidipeli extends Timer implements ActionListener {
         }
         alus.liiku();
         tormaystenKasittelija.hoidaReunanYlitykset(alus, 0);
+        alus.laskeAlusPolygoni();
     }
+    
+    /**
+     * Metodi sisältää pelin pääsilmukan.
+     * @param e 
+     */
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        luuppi();
-
-    }
-    public void luuppi() {
         if (kirjanpitaja.getTila() > 0) {
 
-            aluksenHallinta();
+            laskeTilanne();
 
-            for (Asteroidi a : this.uudetAsteroidit) {
-                this.asteroidilista.add(a);
-            }
-            this.uudetAsteroidit.clear();
-
-            for (Asteroidi a : this.asteroidilista) {
-                a.liiku();
-                tormaystenKasittelija.hoidaReunanYlitykset(a, REUNUKSEN_LEVEYS);
-                a.laskePolygoni();
-
-            }
-
-            for (Ammus a : this.ammuslista) {
-                a.liiku();
-                if (!tormaystenKasittelija.onRuudulla(a)) {
-                    this.poistettavatAmmukset.add(a);
-                }
-
-            }
-            for (Ammus a : this.poistettavatAmmukset) {
-                this.ammuslista.remove(a);
-            }
-
-            tormaystenKasittelija.tutkiTormaykset(this.ammuslista, this.asteroidilista);
-            tormaystenKasittelija.tutkiAluksenTormaykset(this.asteroidilista);
-            this.poistettavatAmmukset.clear();
-
-            alus.laskeAlusPolygoni();
             piirtoalusta.paivita();
             ylapaneeli.paivita();
         }
         if (this.kirjanpitaja.getTila() < 0) {
+            piirtoalusta.paivita();
 
             if (this.kirjanpitaja.getTila() == -2) {
                 this.aloitaAlusta();
@@ -267,6 +276,40 @@ public class Asteroidipeli extends Timer implements ActionListener {
         }
 
         setDelay(PAIVITYSVALI);
+
+    }
+    
+    /**
+     * Metodi laskee ruudun päivitystä varten pelissä olevien objektien seuraavan tilanteen.
+     */
+
+    public void laskeTilanne() {
+        aluksenHallinta();
+
+        for (Asteroidi a : this.asteroidilista) {
+            a.liiku();
+            tormaystenKasittelija.hoidaReunanYlitykset(a, REUNUKSEN_LEVEYS);
+            a.laskePolygoni();
+
+        }
+
+        for (Ammus a : this.ammuslista) {
+            a.liiku();
+            if (!tormaystenKasittelija.onRuudulla(a)) {
+                this.poistettavatAmmukset.add(a);
+            }
+
+        }
+        for (Ammus a : this.poistettavatAmmukset) {
+            this.ammuslista.remove(a);
+        }
+        
+        this.poistettavatAmmukset.clear();
+
+        tormaystenKasittelija.tutkiTormaykset(this.ammuslista, this.asteroidilista);
+        tormaystenKasittelija.tutkiAluksenTormaykset(this.asteroidilista);
+        
+
     }
 
 }

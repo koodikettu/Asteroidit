@@ -12,6 +12,7 @@ import asteroidit.domain.Asteroidi;
 import asteroidit.domain.Asteroidi;
 import asteroidit.logiikka.TormaystenKasittelija;
 import asteroidit.peli.Asteroidipeli;
+import java.util.Arrays;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -25,8 +26,9 @@ import static org.junit.Assert.*;
  */
 public class TormaystenKasittelijaTest {
 
-    Asteroidipeli peli;
-    TormaystenKasittelija kasittelija;
+    Asteroidipeli peli = new Asteroidipeli();
+    TormaystenKasittelija kasittelija = new TormaystenKasittelija(peli);
+    Kirjanpitaja kirjanpitaja = peli.getKirjanpitaja();
 
     public TormaystenKasittelijaTest() {
     }
@@ -41,8 +43,7 @@ public class TormaystenKasittelijaTest {
 
     @Before
     public void setUp() {
-        peli = new Asteroidipeli();
-        kasittelija = new TormaystenKasittelija(peli);
+
     }
 
     @After
@@ -55,15 +56,27 @@ public class TormaystenKasittelijaTest {
     // @Test
     // public void hello() {}
     @Test
-    public void onRuudullaToimiiPos() {
+    public void onRuudulla1ToimiiPos() {
         Ammus ammus = new Ammus(100, 100, 0);
         assertEquals(true, kasittelija.onRuudulla(ammus));
     }
 
     @Test
-    public void onRuudullaToimiiNeg() {
+    public void onRuudulla1ToimiiNeg() {
         Ammus ammus = new Ammus(-4, 100, 0);
         assertEquals(false, kasittelija.onRuudulla(ammus));
+    }
+    
+        @Test
+    public void onRuudulla2ToimiiPos() {
+
+        assertEquals(true, kasittelija.onRuudulla(5,600));
+    }
+
+    @Test
+    public void onRuudulla2ToimiiNeg() {
+
+        assertEquals(false, kasittelija.onRuudulla(1100,50));
     }
 
     @Test
@@ -128,29 +141,54 @@ public class TormaystenKasittelijaTest {
     }
 
     @Test
-    public void tutkiAluksenTormayksetTest() {
-        peli.getAsteroidilista().clear();
-        peli.uusiAsteroidi();
-        peli.getAlus().setX(100);
-        peli.getAlus().setY(100);
-        peli.getAlus().laskeAlusPolygoni();
-        peli.getAsteroidilista().get(0).setX(100);
-        peli.getAsteroidilista().get(0).setY(90);
-        System.out.println(peli.getAlus().getAlusPolygoni().xpoints[0]);
-        System.out.println(peli.getAsteroidilista().get(0).getX());
-        System.out.println(peli.getAsteroidilista().size());
+    public void tutkiTormaysTestEiTormaysta() {
 
-        ;
-        assertEquals(false, kasittelija.tutkiAluksenTormaykset(peli.getAsteroidilista()));
+        int a = kasittelija.tutkiTormays(peli.getAlus(), new Asteroidi(15, 15, 30, 30, peli.getRandom()));
+        assertEquals(0, a);
 
     }
-    
+
+    @Test
+    public void tutkiTormaysTestTormays1() {
+        int x = peli.getRuudunLeveys() / 2;
+        int y = peli.getRuudunKorkeus() / 2;
+        Asteroidi asteroidi = new Asteroidi(0, 0, 0, 0, peli.getRandom());
+        asteroidi.alusta(peli.getRandom(), 1000, 600, 25, 0);
+        asteroidi.setX(x);
+        asteroidi.setY(y);
+        asteroidi.laskePolygoni();
+        System.out.println(Arrays.toString(asteroidi.getAsteroidiPolygoni().xpoints));
+        System.out.println(Arrays.toString(asteroidi.getAsteroidiPolygoni().ypoints));
+        System.out.println(peli.getAlus().getX() + ", " + peli.getAlus().getY());
+        int a = kasittelija.tutkiTormays(peli.getAlus(), asteroidi);
+        System.out.println(a);
+        assertEquals(true, a > 0);
+
+    }
+
     @Test
     public void asteroidinPoistoToimiiOikein() {
 
-        Asteroidi a=peli.getAsteroidilista().get(0);
+        Asteroidi a = peli.getAsteroidilista().get(0);
         kasittelija.getPoistettavat().add(a);
         kasittelija.poistaPoistettavat(peli.getAmmuslista(), peli.getAsteroidilista());
         assertEquals(false, kasittelija.getPoistettavat().contains(a));
+    }
+
+    @Test
+    public void asteroidienLisaysTasonNoustessaToimii() {
+        kirjanpitaja.reset();
+        kirjanpitaja.kasvataPisteita(190);
+
+        peli.getAsteroidilista().get(0).setX(800);
+        peli.getAsteroidilista().get(0).setY(100);
+        peli.getAsteroidilista().get(0).laskePolygoni();
+        Ammus ammus = new Ammus(800, 100, 90);
+        peli.getAmmuslista().add(ammus);
+        System.out.println(kirjanpitaja.getPisteet());
+        int a = kasittelija.tutkiTormaykset(peli.getAmmuslista(), peli.getAsteroidilista());
+        System.out.println(kirjanpitaja.getPisteet());
+        assertEquals(1, a);
+
     }
 }

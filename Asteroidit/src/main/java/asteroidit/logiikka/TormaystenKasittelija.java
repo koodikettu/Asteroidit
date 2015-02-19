@@ -5,6 +5,7 @@
  */
 package asteroidit.logiikka;
 
+import asteroidit.domain.Alus;
 import asteroidit.domain.Ammus;
 import asteroidit.domain.Asteroidi;
 import asteroidit.domain.Liikkuva;
@@ -40,7 +41,7 @@ public class TormaystenKasittelija {
      * @param ammuslista lista ruudulla olevista ammuksista
      * @param asteroidilista lista pelissä olevista asteroideista
      */
-    public void tutkiTormaykset(ArrayList<Ammus> ammuslista, ArrayList<Asteroidi> asteroidilista) {
+    public int tutkiTormaykset(ArrayList<Ammus> ammuslista, ArrayList<Asteroidi> asteroidilista) {
         int x, y;
 
         for (Ammus a : ammuslista) {
@@ -57,10 +58,19 @@ public class TormaystenKasittelija {
                 }
             }
         }
+        int temp=korvaaviaAsteroideja;
         poistaPoistettavat(ammuslista, asteroidilista);
+        return temp;
 
     }
 
+    /**
+     * Metodi poistaa pelistä poistettavien listalla olevat ammukset ja
+     * asteroidit.
+     *
+     * @param ammuslista
+     * @param asteroidilista
+     */
     public void poistaPoistettavat(ArrayList<Ammus> ammuslista, ArrayList<Asteroidi> asteroidilista) {
         for (Asteroidi ast : this.poistettavatAsteroidit) {
             asteroidilista.remove(ast);
@@ -72,7 +82,7 @@ public class TormaystenKasittelija {
         for (int i = 0; i < korvaaviaAsteroideja; i++) {
             this.peli.uusiAsteroidi();
         }
-        this.korvaaviaAsteroideja=0;
+        this.korvaaviaAsteroideja = 0;
         this.poistettavatAsteroidit.clear();
         this.poistettavatAmmukset.clear();
     }
@@ -84,27 +94,11 @@ public class TormaystenKasittelija {
      * @param asteroidilista lista pelissä olevista asteroideista
      */
     public boolean tutkiAluksenTormaykset(ArrayList<Asteroidi> asteroidilista) {
-        Polygon p = this.peli.getAlus().getAlusPolygoni();
         boolean tormays = false;
-        int[] x = new int[3];
-        int[] y = new int[3];
         for (Asteroidi a : asteroidilista) {
-            x = p.xpoints;
-            y = p.ypoints;
-            for (int i = 0; i < 3; i++) {
-                if (a.getAsteroidiPolygoni().contains(x[i], y[i])) {
-                    System.out.println("TÖRMÄYS!");
-                    System.out.println("Asteroidin koordinaatit: ");
-                    for (int t = 0; t < a.getAsteroidiPolygoni().npoints; t++) {
-                        System.out.println(a.getAsteroidiPolygoni().xpoints[t] + ":" + a.getAsteroidiPolygoni().ypoints[t]);
-
-                    }
-                    System.out.println("Asteroidin koord:");
-                    System.out.println(x[i] + ":" + y[i]);
-                    tormays = true;
-                }
+            if (tutkiTormays(this.peli.getAlus(), a) > 0) {
+                tormays = true;
             }
-
         }
         if (tormays) {
             this.peli.getKirjanpitaja().setTila(-1);
@@ -127,6 +121,49 @@ public class TormaystenKasittelija {
             return false;
         }
         return true;
+    }
+    
+    public boolean onRuudulla(int x, int y) {
+        if (y < 0 || y > this.peli.getRuudunKorkeus()) {
+            return false;
+        } else if (x < 0 || x > this.peli.getRuudunLeveys()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Metodi tutkii, ovatko parametreinä olevat alus ja asteroidi törmänneet.
+     *
+     * @param alus Tutkittava alus
+     * @param asteroidi Tutkittava asteroidi
+     * @return Metodi palauttaa kokonaisluvun, jonka ykkösten paikalta voi
+     * lukea, moniko aluksen kulmapisteistä on asteroidin polygonin sisällä, ja
+     * jonka kymmenien paikalta voi lukea, moniko asteroidin kulmapisteistä on
+     * aluksen polygonin sisällä. Jos törmäystä ei ole tapahtunut, paluuarvo on
+     * 0.
+     */
+    public int tutkiTormays(Alus alus, Asteroidi asteroidi) {
+        Polygon aluspolygoni = alus.getAlusPolygoni();
+        Polygon asteroidipolygoni = asteroidi.getAsteroidiPolygoni();
+        int tulos = 0;
+        int i;
+
+        // tutkitaan, onko joku aluksen polygonin piste asteroidin polygonin sisällä
+        for (i = 0; i < aluspolygoni.npoints; i++) {
+            if (asteroidipolygoni.contains(aluspolygoni.xpoints[i], aluspolygoni.ypoints[i])) {
+                tulos++;
+            }
+        }
+
+        // tutkitaan, onko joku asteroidin polygonin piste aluksen polygonin sisällä
+        for (i = 0; i < asteroidipolygoni.npoints; i++) {
+            if (aluspolygoni.contains(asteroidipolygoni.xpoints[i], asteroidipolygoni.ypoints[i])) {
+                tulos += 10;
+            }
+        }
+
+        return tulos;
     }
 
     /**
@@ -151,7 +188,7 @@ public class TormaystenKasittelija {
             a.setY(this.peli.getRuudunKorkeus() + reunuksenLeveys);
         }
     }
-    
+
     public ArrayList<Asteroidi> getPoistettavat() {
         return this.poistettavatAsteroidit;
     }

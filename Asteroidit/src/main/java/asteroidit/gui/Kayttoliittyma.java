@@ -53,6 +53,11 @@ public class Kayttoliittyma implements Runnable {
         frame.pack();
         frame.setVisible(true);
     }
+    
+    /**
+     * Luo ruudulle komponentit yläpaneeli ja piirtoalusta, sekä liittää Näppäimistönkuuntelijan.
+     * @param container 
+     */
 
     public void luoKomponentit(Container container) {
         this.piirtoalusta = new Piirtoalusta(this.peli);

@@ -5,6 +5,7 @@
  */
 package asteroidit.peli;
 
+import asteroidit.domain.Ammus;
 import asteroidit.gui.Kayttoliittyma;
 import asteroidit.peli.Asteroidipeli;
 import java.awt.event.ActionEvent;
@@ -26,9 +27,8 @@ public class AsteroidipeliTest {
 
     public AsteroidipeliTest() {
         peli = new Asteroidipeli();
-        
-//        Kayttoliittyma kayttoliittyma = new Kayttoliittyma(peli);
 
+//        Kayttoliittyma kayttoliittyma = new Kayttoliittyma(peli);
 //        SwingUtilities.invokeLater(kayttoliittyma);
 //        System.out.println("Käyttöliittymän luominen.");
 //        while (kayttoliittyma.getPiirtoalusta() == null) {
@@ -63,10 +63,55 @@ public class AsteroidipeliTest {
     // @Test
     // public void hello() {}
     @Test
-    public void aloitaAlustaToimii() {
+    public void aloitaAlustaTest1() {
         peli.aloitaAlusta();
         assertEquals(4, peli.getAsteroidilista().size());
     }
+
+    @Test
+    public void aloitaAlustaTest2() {
+
+        peli.uusiAmmus(100, 200, 270);
+        peli.aloitaAlusta();
+        assertEquals(0, peli.getAmmuslista().size());
+    }
+
+    @Test
+    public void aloitaAlustaTest3() {
+        peli.getAlus().setX(333);
+
+        peli.getAlus().setY(333);
+
+        peli.getAlus().setSuunta(333);
+
+        peli.uusiAmmus(100, 200, 270);
+        peli.aloitaAlusta();
+        assertEquals(peli.getRuudunLeveys() / 2, peli.getAlus().getX());
+        assertEquals(peli.getRuudunKorkeus() / 2, peli.getAlus().getY());
+    }
+    
+        @Test
+    public void aloitaAlustaTest4() {
+        peli.getAlus().setX(333);
+
+        peli.getAlus().setY(333);
+
+        peli.getAlus().setSuunta(333);
+
+        peli.uusiAmmus(100, 200, 270);
+        peli.aloitaAlusta();
+        assertEquals(90, peli.getAlus().getSuunta(), 0.01);
+    }
+    
+            @Test
+    public void aloitaAlustaTest5() {
+        peli.uusiAsteroidi();
+        assertEquals(5, peli.getAsteroidilista().size());
+        peli.aloitaAlusta();
+        assertEquals(4, peli.getAsteroidilista().size());
+    }
+
+
 
     @Test
     public void uusiAmmusToimii() {
@@ -76,7 +121,7 @@ public class AsteroidipeliTest {
     }
 
     @Test
-    public void nappaimistoTest() {
+    public void kiihdytysTest1() {
         peli.nappaimistonTila(1, 1, 1, 0, 1);
         peli.aluksenHallinta();
 
@@ -84,19 +129,81 @@ public class AsteroidipeliTest {
     }
 
     @Test
-    public void uusiAsteroidiToimii() {
+    public void kaantoTest1() {
+        peli.nappaimistonTila(-1, 1, -1, -1, -1);
+        peli.aluksenHallinta();
+
+        assertEquals(85, peli.getAlus().getSuunta(), 0.01);
+    }
+
+    @Test
+    public void uusiAsteroidiToimii1() {
         int a = peli.getAsteroidilista().size();
         peli.uusiAsteroidi();
         assertEquals(1, peli.getAsteroidilista().size() - a);
     }
 
-//    @Test
-//    public void luuppiTest() {
-//        int a = peli.getAsteroidilista().get(0).getX();
-//        peli.luuppi();
-//        peli.luuppi();
-//        assertEquals(true, peli.getAsteroidilista().get(0).getX()!=a);
-//
-//    }
+    @Test
+    public void uusiAsteroidiToimii2() {
+        peli.getAsteroidilista().clear();
+        peli.uusiAsteroidi();
+        peli.getAsteroidilista().get(0).laskePolygoni();
+        int x = peli.getAsteroidilista().get(0).getX();
+        int y = peli.getAsteroidilista().get(0).getY();
+        assertEquals(false, peli.getTormaystenKasittelija().onRuudulla(x, y));
+    }
+
+    @Test
+    public void laskeTilanneTest() {
+        peli.getAsteroidilista().get(0).setX(100);
+        peli.getAsteroidilista().get(0).setY(100);
+        peli.getAsteroidilista().get(0).setDx(5);
+        peli.getAsteroidilista().get(0).setDy(5);
+        peli.laskeTilanne();
+        assertEquals(105, peli.getAsteroidilista().get(0).getX());
+        assertEquals(105, peli.getAsteroidilista().get(0).getY());
+
+    }
+
+    @Test
+    public void laskeTilanneTest2() {
+        peli.getAmmuslista().clear();
+        Ammus a = new Ammus(50, 50, 0);
+        peli.getAmmuslista().add(a);
+        peli.laskeTilanne();
+        assertEquals(58, peli.getAmmuslista().get(0).getX());
+        assertEquals(50, peli.getAmmuslista().get(0).getY());
+
+    }
+
+    @Test
+    public void laskeTilanneTest3() {
+        peli.getAmmuslista().clear();
+        Ammus a = new Ammus(5, 5, 180);
+        peli.getAmmuslista().add(a);
+        peli.laskeTilanne();
+        assertEquals(0, peli.getAmmuslista().size());
+        assertEquals(0, peli.getPoistettavatAmmukset().size());
+
+    }
+
+    @Test
+    public void laskeTilanneTest4() {
+        peli.getAmmuslista().clear();
+        peli.getAsteroidilista().clear();
+        Ammus a = new Ammus(800, 100, 180);
+        peli.getAmmuslista().add(a);
+
+        peli.getAsteroidilista().clear();
+        peli.uusiAsteroidi();
+        peli.getAsteroidilista().get(0).laskePolygoni();
+        peli.getAsteroidilista().get(0).setX(800);
+        peli.getAsteroidilista().get(0).setY(100);
+        peli.laskeTilanne();
+        peli.laskeTilanne();
+        assertEquals(0, peli.getAmmuslista().size());
+        assertEquals(0, peli.getPoistettavatAmmukset().size());
+
+    }
 
 }

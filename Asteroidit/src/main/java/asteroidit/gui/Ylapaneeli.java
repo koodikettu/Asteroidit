@@ -26,6 +26,11 @@ public class Ylapaneeli extends JPanel {
     public Ylapaneeli(Asteroidipeli a) {
         this.peli = a;
     }
+    
+    /**
+     * Metodi piirtää yläpaneelin.
+     * @param g Graphics-olio
+     */
 
     @Override
     public void paintComponent(Graphics g) {
@@ -43,14 +48,18 @@ public class Ylapaneeli extends JPanel {
         }
 
         g.setColor(Color.DARK_GRAY);
-        s = "Asteroidien määrä: " + peli.getAsteroidienMaara();
+        s = "Asteroidien määrä: " + peli.getAsteroidilista().size();
         g.drawString(s, 10, 20);
-        s = "Ammusten määrä: " + peli.getAmmustenMaara();
+        s = "Ammusten määrä: " + peli.getAmmuslista().size();
         g.drawString(s, 10, 40);
         s = "PISTEET: " + peli.getKirjanpitaja().getPisteet();
         g.drawString(s, 10, 60);
     }
 
+    /**
+     * Metodi päivittää yläpaneelin
+     */
+    
     public void paivita() {
         super.repaint();
     }
