@@ -7,6 +7,7 @@ package asteroidit.domain;
 
 import asteroidit.domain.Alus;
 import java.awt.Polygon;
+import java.util.Arrays;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -95,34 +96,80 @@ public class AlusTest {
     @Test
     public void liikuTest1() {
         Alus alus = new Alus(100, 100, 90);
- 
-            alus.kiihdyta(true);
 
-            alus.liiku();
-                        alus.kiihdyta(true);
+        alus.kiihdyta(true);
 
-            alus.liiku();
+        alus.liiku();
+        alus.kiihdyta(true);
 
+        alus.liiku();
 
         assertEquals(true, alus.getY() < 100);
     }
-    
-        @Test
+
+    @Test
     public void liikuTest2() {
         Alus alus = new Alus(100, 100, 0);
- 
-            alus.kiihdyta(true);
 
-            alus.liiku();
-                        alus.kiihdyta(true);
+        alus.kiihdyta(true);
 
-            alus.liiku();
-                        alus.kiihdyta(true);
+        alus.liiku();
+        alus.kiihdyta(true);
 
-            alus.liiku();
+        alus.liiku();
+        alus.kiihdyta(true);
 
+        alus.liiku();
 
         assertEquals(true, alus.getX() > 100);
+    }
+
+    @Test
+    public void kiihdytysTest() {
+        Alus alus = new Alus(100, 100, 90);
+
+        alus.kiihdyta(true);
+        alus.kiihdyta(true);
+        assertEquals(1, alus.getNopeus(), 0.01);
+
+    }
+
+    @Test
+    public void kiihdytysTest2() {
+        Alus alus = new Alus(100, 100, 90);
+
+        alus.kiihdyta(false);
+        alus.kiihdyta(false);
+        alus.kiihdyta(false);
+        alus.kiihdyta(false);
+        alus.kiihdyta(false);
+        alus.kiihdyta(false);
+        alus.kiihdyta(false);
+        alus.kiihdyta(false);
+        alus.kiihdyta(false);
+        alus.kiihdyta(false);
+        alus.liiku();
+        assertEquals(100, alus.getX());
+        assertEquals(105, alus.getY());
+
+    }
+
+    @Test
+    public void polygoniTest() {
+        Alus alus = new Alus(100, 100, 90);
+        alus.laskeAlusPolygoni();
+        Polygon p = alus.getAlusPolygoni();
+        System.out.println(Arrays.toString(p.xpoints));
+        System.out.println(Arrays.toString(p.ypoints));
+        assertEquals(100, p.xpoints[0]);
+        assertEquals(70, p.ypoints[0]);
+
+        assertEquals(85, p.xpoints[1]);
+        assertEquals(126, p.ypoints[1]);
+
+        assertEquals(115, p.xpoints[2]);
+        assertEquals(126, p.ypoints[2]);
+
     }
 
 }
