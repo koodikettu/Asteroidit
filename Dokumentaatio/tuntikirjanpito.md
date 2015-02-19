@@ -19,3 +19,5 @@
 12.2.2014  6h  Toteutettu yläpaneeli-luokka. Paranneltu koodia.
 
 13.2.2014  3h  Päivitetty testejä vastaamaan muutoksia. Dokumentointia.
+
+19.2.2014  6h  Refaktorointia clean code -vaatimusten täyttämiseksi ja laajemman testauksen mahdollistamiseksi sekä testien kirjoittamista
