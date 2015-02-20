@@ -49,7 +49,7 @@ public class Ammus {
     /**
      * Metodi luo ammuksen koordinaattien perusteella ammusta ruudulla edustavan polygonin.
      * 
-     * @return 
+     * @return palauttaa muodostetun Polygon-olion
      */
 
     public Polygon getAmmusPolygoni() {

@@ -123,6 +123,13 @@ public class TormaystenKasittelija {
         return true;
     }
     
+    /**
+     * edellisen onRuudulla-metodin ylikuormitettu versio, joka saa parametreinä puhtaat x- ja y-koordinaatit
+     * @param x tutkittavan pisteen x-koordinaatti
+     * @param y tutkittavan pisteen y-koordinaatti
+     * @return true, jos piste on ruudulla; false, jos ei ole
+     */
+    
     public boolean onRuudulla(int x, int y) {
         if (y < 0 || y > this.peli.getRuudunKorkeus()) {
             return false;
