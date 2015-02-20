@@ -7,9 +7,11 @@ Kun pelaajan ammus osuu asteroidiin, sekä asteroidi että ammus tuhoutuvat ja pel
 
 Pelaajan ylittäessä asetettuja pisterajoja peli vaikeutuu. Tiettyjen rajojen kohdalla uusien asteroidien nopeus kasvaa. Toisien rajojen kohdalla pelissä olevien asteroidien määrä kasvaa.
 
+Peli päättyy, kun pelaaja törmää asteroidiin.
+
 **Käyttäjät:** Kaikki retrohenkisistä peleistä kiinnostuneet. Ei erillisiä käyttäjäryhmiä.
 
-**"Käyttötapaukset":** Pelaaja voi kääntää alusta nuolinäppäimillä 360 astetta. Pelaaja voi ampua ammuksia asteroideja kohti. Pelaaja voi käyttää aluksen moottoreita liikkumiseen eteenpäin.
+**"Käyttötapaukset":** 1. Pelaaja voi kääntää alusta vasemmalla ja oikealla nuolinappaimella vasta- ja myötäpäivään. 2. Pelaaja voi ampua ammuksia asteroideja kohti välilyönti-näppäimellä. 3. Pelaaja voi liikutella alusta kiihdyttämällä aluksen nopeutta ylä- ja alanuolinäppäimillä.
 
 
 
