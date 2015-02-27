@@ -5,7 +5,6 @@
  */
 package asteroidit.gui;
 
-import asteroidit.domain.Alus;
 import asteroidit.logiikka.TilanteenLaskija;
 import asteroidit.peli.Asteroidipeli;
 import java.awt.event.KeyEvent;
@@ -24,7 +23,7 @@ public class Nappaimistonkuuntelija implements KeyListener {
 
     public Nappaimistonkuuntelija(Asteroidipeli peli) {
         this.peli = peli;
-        this.tl=peli.getTilanteenLaskija();
+        this.tl = peli.getTilanteenLaskija();
     }
 
     @Override
@@ -39,32 +38,40 @@ public class Nappaimistonkuuntelija implements KeyListener {
      */
     @Override
     public void keyPressed(KeyEvent ke) {
-        this.tl=peli.getTilanteenLaskija();
-        if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
-            tl.nappaimistonTila(1, -1, -1, -1, -1);
+        this.tl = peli.getTilanteenLaskija();
+        switch (ke.getKeyCode()) {
+            case KeyEvent.VK_LEFT:
+                tl.vasenNuoliTila(true);
+                break;
 
-        }
-        if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
-            tl.nappaimistonTila(-1, 1, -1, -1, -1);
-        }
-        if (ke.getKeyCode() == KeyEvent.VK_UP) {
-            tl.nappaimistonTila(-1, -1, 1, -1, -1);
-        }
-        if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
-            tl.nappaimistonTila(-1, -1, -1, 1, -1);
-        }
+            case KeyEvent.VK_RIGHT:
+                tl.oikeaNuoliTila(true);
+                break;
 
-        if (ke.getKeyCode() == KeyEvent.VK_SPACE) {
-            tl.nappaimistonTila(-1, -1, -1, -1, 1);
-        }
-        if (ke.getKeyCode() == KeyEvent.VK_C) {
-            this.peli.getAsteroidilista().clear();
-        }
-        if (ke.getKeyCode() == KeyEvent.VK_S) {
-            this.peli.getKirjanpitaja().setTila(-2);
-        }
-        if (ke.getKeyCode() == KeyEvent.VK_Q) {
-            this.peli.getKirjanpitaja().setTila(-3);
+            case KeyEvent.VK_UP:
+                tl.ylaNuoliTila(true);
+                break;
+
+            case KeyEvent.VK_DOWN:
+                tl.alaNuoliTila(true);
+                break;
+
+            case KeyEvent.VK_SPACE:
+                tl.valilyontiTila(true);
+                break;
+
+            case KeyEvent.VK_C:
+                this.peli.getAsteroidilista().clear();
+                break;
+
+            case KeyEvent.VK_S:
+                this.peli.getKirjanpitaja().setTila(-2);
+                break;
+
+            case KeyEvent.VK_Q:
+                this.peli.getKirjanpitaja().setTila(-3);
+                break;
+
         }
 
     }
@@ -76,22 +83,28 @@ public class Nappaimistonkuuntelija implements KeyListener {
      */
     @Override
     public void keyReleased(KeyEvent ke) {
-        this.tl=peli.getTilanteenLaskija();
-        if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
-            tl.nappaimistonTila(0, -1, -1, -1, -1);
+        this.tl = peli.getTilanteenLaskija();
+        switch (ke.getKeyCode()) {
+            case KeyEvent.VK_LEFT:
+                tl.vasenNuoliTila(false);
+                break;
 
-        }
-        if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
-            tl.nappaimistonTila(-1, 0, -1, -1, -1);
-        }
-        if (ke.getKeyCode() == KeyEvent.VK_UP) {
-            tl.nappaimistonTila(-1, -1, 0, -1, -1);
-        }
-        if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
-            tl.nappaimistonTila(-1, -1, -1, 0, -1);
-        }
-        if (ke.getKeyCode() == KeyEvent.VK_SPACE) {
-            tl.nappaimistonTila(-1, -1, -1, -1, 0);
+            case KeyEvent.VK_RIGHT:
+                tl.oikeaNuoliTila(false);
+                break;
+
+            case KeyEvent.VK_UP:
+                tl.ylaNuoliTila(false);
+                break;
+
+            case KeyEvent.VK_DOWN:
+                tl.alaNuoliTila(false);
+                break;
+
+            case KeyEvent.VK_SPACE:
+                tl.valilyontiTila(false);
+                break;
+
         }
     }
 

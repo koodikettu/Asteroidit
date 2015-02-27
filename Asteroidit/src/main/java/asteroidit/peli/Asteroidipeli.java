@@ -13,7 +13,6 @@ import asteroidit.logiikka.TormaystenKasittelija;
 import asteroidit.gui.Piirtoalusta;
 import asteroidit.gui.Ylapaneeli;
 import asteroidit.logiikka.TilanteenLaskija;
-import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -37,7 +36,6 @@ public class Asteroidipeli extends Timer implements ActionListener {
     private int asteroidienNopeus = ASTEROIDIEN_ALKUNOPEUS;
     private Alus alus;
 
-    Asteroidi a;
     Random random;
 
     private ArrayList<Asteroidi> asteroidilista = new ArrayList<Asteroidi>();
@@ -70,7 +68,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
      * Metodi luo uuden asteroidin muodon ja alustaa sille alkusijainnin.
      */
     public void uusiAsteroidi() {
-        a = new Asteroidi(0, 0, 0, 0, random);
+        Asteroidi a = new Asteroidi(0, 0, 0, 0, random);
         a.alusta(random, RUUDUN_LEVEYS, RUUDUN_KORKEUS, REUNUKSEN_LEVEYS, asteroidienNopeus);
         this.asteroidilista.add(a);
     }

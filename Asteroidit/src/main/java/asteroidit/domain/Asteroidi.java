@@ -77,47 +77,6 @@ public class Asteroidi implements Liikkuva {
 
     }
 
-    public Polygon getAsteroidiPolygoni() {
-
-        return this.polygoni;
-    }
-
-    /**
-     * Metodi liikuttaa asteroidia sen nopeuden mukaisesti.
-     */
-    public void liiku() {
-        this.x += dx;
-        this.y += dy;
-    }
-
-    public void setDx(float dx) {
-        this.dx = dx;
-    }
-
-    public void setDy(float dy) {
-        this.dy = dy;
-    }
-
-    @Override
-    public int getX() {
-        return (int) this.x;
-    }
-
-    @Override
-    public int getY() {
-        return (int) this.y;
-    }
-
-    @Override
-    public void setX(int x) {
-        this.x = (double) x;
-    }
-
-    @Override
-    public void setY(int y) {
-        this.y = (double) y;
-    }
-
     /**
      * Metodi alustaa uuden asteroidin siten, että sen alkukoordinaatit eivät
      * ole ruudulla, vaan ruudun ulkopuolelle jäävillä vakiolevyisillä
@@ -154,6 +113,47 @@ public class Asteroidi implements Liikkuva {
         float apu = random.nextFloat();
         this.dx = Math.cos(Math.toRadians(suunta)) * (apu * nopeus + 1);
         this.dy = Math.sin(Math.toRadians(suunta)) * (apu * nopeus + 1);
+    }
+
+    /**
+     * Metodi liikuttaa asteroidia sen nopeuden mukaisesti.
+     */
+    public void liiku() {
+        this.x += dx;
+        this.y += dy;
+    }
+
+    public Polygon getAsteroidiPolygoni() {
+
+        return this.polygoni;
+    }
+
+    public void setDx(float dx) {
+        this.dx = dx;
+    }
+
+    public void setDy(float dy) {
+        this.dy = dy;
+    }
+
+    @Override
+    public int getX() {
+        return (int) this.x;
+    }
+
+    @Override
+    public int getY() {
+        return (int) this.y;
+    }
+
+    @Override
+    public void setX(int x) {
+        this.x = (double) x;
+    }
+
+    @Override
+    public void setY(int y) {
+        this.y = (double) y;
     }
 
 }

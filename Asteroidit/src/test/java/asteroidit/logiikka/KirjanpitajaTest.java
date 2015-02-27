@@ -62,17 +62,34 @@ public class KirjanpitajaTest {
         assertEquals(10, kp.getPisteet());
 
     }
-    
-        @Test
+
+    @Test
     public void nopeudenKasvatusToimii() {
         Asteroidipeli peli = new Asteroidipeli();
         Kirjanpitaja kp = new Kirjanpitaja(1, peli);
         assertEquals(0, kp.getPisteet());
         int a = peli.getAsteroidienNopeus();
         kp.kasvataPisteita(200);
-        assertEquals(true, peli.getAsteroidienNopeus()-a>0);
+        assertEquals(true, peli.getAsteroidienNopeus() - a > 0);
 
     }
+
+    @Test
+    public void setTilaTest() {
+        Asteroidipeli peli = new Asteroidipeli();
+        Kirjanpitaja kp = new Kirjanpitaja(1, peli);
+        kp.setTila(5);
+        assertEquals(5, kp.getTila());
+    }
     
-    
+        @Test
+    public void resetTest() {
+        Asteroidipeli peli = new Asteroidipeli();
+        Kirjanpitaja kp = new Kirjanpitaja(1, peli);
+        kp.kasvataPisteita(200);
+        kp.reset();
+        assertEquals(0, kp.getTila());
+        assertEquals(0, kp.getPisteet());
+    }
+
 }

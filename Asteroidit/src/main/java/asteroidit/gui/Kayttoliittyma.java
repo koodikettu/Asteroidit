@@ -9,7 +9,6 @@ import asteroidit.peli.Asteroidipeli;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 

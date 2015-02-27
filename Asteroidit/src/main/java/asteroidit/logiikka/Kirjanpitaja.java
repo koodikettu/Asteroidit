@@ -38,6 +38,14 @@ public class Kirjanpitaja {
         }
     }
 
+    /**
+     * Metodi asettaa pelin alkutilanteeseen ja nollaa pisteet.
+     */
+    public void reset() {
+        this.tila = 0;
+        this.pisteet = 0;
+    }
+
     public int getPisteet() {
         return this.pisteet;
     }
@@ -49,10 +57,4 @@ public class Kirjanpitaja {
     public void setTila(int tila) {
         this.tila = tila;
     }
-
-    public void reset() {
-        this.tila = 0;
-        this.pisteet = 0;
-    }
-
 }

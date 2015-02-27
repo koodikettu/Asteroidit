@@ -104,17 +104,31 @@ public class AsteroidipeliTest {
     }
     
             @Test
-    public void aloitaAlustaTest5() {
+    public void aloitaAlustaAsteroidienMaaraOikeinTest() {
         peli.uusiAsteroidi();
         assertEquals(5, peli.getAsteroidilista().size());
         peli.aloitaAlusta();
         assertEquals(4, peli.getAsteroidilista().size());
     }
+    
+        @Test
+    public void aloitaAlustaAlusPolygoninLaskentaToimiiTest() {
+        peli.getAlus().setX(333);
+
+        peli.getAlus().setY(333);
+
+        peli.getAlus().setSuunta(333);
+
+        peli.uusiAmmus(100, 200, 270);
+        peli.aloitaAlusta();
+        assertEquals(peli.getRuudunLeveys() / 2, peli.getAlus().getAlusPolygoni().xpoints[0]);
+
+    }
 
 
 
     @Test
-    public void uusiAmmusToimii() {
+    public void uusiAmmusToimiiTest() {
         int a = peli.getAmmuslista().size();
         peli.uusiAmmus(100, 200, 90);
         assertEquals(1, peli.getAmmuslista().size() - a);
@@ -130,7 +144,7 @@ public class AsteroidipeliTest {
     }
 
     @Test
-    public void uusiAsteroidiToimii2() {
+    public void uusiAsteroidiToimii2Test() {
         peli.getAsteroidilista().clear();
         peli.uusiAsteroidi();
         peli.getAsteroidilista().get(0).laskePolygoni();

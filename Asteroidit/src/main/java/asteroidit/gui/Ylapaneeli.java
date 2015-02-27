@@ -5,8 +5,6 @@
  */
 package asteroidit.gui;
 
-import asteroidit.domain.Ammus;
-import asteroidit.domain.Asteroidi;
 import asteroidit.peli.Asteroidipeli;
 import java.awt.Color;
 import java.awt.Graphics;

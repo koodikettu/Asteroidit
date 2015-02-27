@@ -12,7 +12,6 @@ import asteroidit.domain.Liikkuva;
 import asteroidit.peli.Asteroidipeli;
 import java.awt.Polygon;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Luokka sisältää metodit, joilla käsitellään ruudulla liikkuvien kohteiden
@@ -39,6 +38,7 @@ public class TormaystenKasittelija {
      *
      * @param ammuslista lista ruudulla olevista ammuksista
      * @param asteroidilista lista pelissä olevista asteroideista
+     * @return korvattujen asteroidien määrä, käytetään vain testaustarkoituksiin
      */
     public int tutkiTormaykset(ArrayList<Ammus> ammuslista, ArrayList<Asteroidi> asteroidilista) {
         int x, y;
@@ -66,8 +66,8 @@ public class TormaystenKasittelija {
      * Metodi poistaa pelistä poistettavien listalla olevat ammukset ja
      * asteroidit.
      *
-     * @param ammuslista
-     * @param asteroidilista
+     * @param ammuslista pelissä olevat ammus-oliot sisältävä ArrayList
+     * @param asteroidilista pelissä olevat asteroidi-oliot sisältävä ArrayList
      */
     public void poistaPoistettavat(ArrayList<Ammus> ammuslista, ArrayList<Asteroidi> asteroidilista) {
         for (Asteroidi ast : this.poistettavatAsteroidit) {
@@ -90,6 +90,7 @@ public class TormaystenKasittelija {
      * törmäys havaitaan, peli päättyy.
      *
      * @param asteroidilista lista pelissä olevista asteroideista
+     * @return true, jos on havaittu törmäys; muuten false
      */
     public boolean tutkiAluksenTormaykset(ArrayList<Asteroidi> asteroidilista) {
         boolean tormays = false;

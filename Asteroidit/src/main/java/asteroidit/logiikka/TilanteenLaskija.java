@@ -12,6 +12,7 @@ import asteroidit.peli.Asteroidipeli;
 import java.util.ArrayList;
 
 /**
+ * Luokka sisältää pelitilanteen laskemiseen liittyviä metodeja.
  *
  * @author Markku
  */
@@ -30,7 +31,7 @@ public class TilanteenLaskija {
     public TilanteenLaskija(Asteroidipeli peli, TormaystenKasittelija kasittelija) {
         this.peli = peli;
         this.kasittelija = kasittelija;
-        this.poistettavatAmmukset = new ArrayList<Ammus>();
+        this.poistettavatAmmukset = new ArrayList<>();
         vasenNuolinappain = false;
         oikeaNuolinappain = false;
         valilyonti = false;
@@ -102,48 +103,34 @@ public class TilanteenLaskija {
         alus.laskeAlusPolygoni();
     }
 
-    /**
-     * Metodi välittää Näppäimistönkuuntelija-oliolta näppäinten tilojen
-     * muutokset Asteroidipeli-olioon.
-     *
-     * @param vNuoli Vasemman nuolinäppäimen tila, 1 = painettu, 0 = vapautettu,
-     * -1 = ei muutosta
-     * @param oNuoli Oikean nuoinäppäimen tila
-     * @param yNuoli Nuoli ylöspäin -näppäimen tila
-     * @param aNuoli Nuoli alaspäin -näppäimen tila
-     * @param vLyonti valilyönti-nappaimen tila
-     */
-    public void nappaimistonTila(int vNuoli, int oNuoli, int yNuoli, int aNuoli, int vLyonti) {
-        if (vNuoli == 1) {
-            this.vasenNuolinappain = true;
-        }
-        if (vNuoli == 0) {
-            this.vasenNuolinappain = false;
-        }
-        if (oNuoli == 1) {
-            this.oikeaNuolinappain = true;
-        }
-        if (oNuoli == 0) {
-            this.oikeaNuolinappain = false;
-        }
-        if (vLyonti == 1) {
-            this.valilyonti = true;
-        }
-        if (vLyonti == 0) {
-            this.valilyonti = false;
-        }
-        if (yNuoli == 1) {
-            this.ylosNuolinappain = true;
-        }
-        if (yNuoli == 0) {
-            this.ylosNuolinappain = false;
-        }
-        if (aNuoli == 1) {
-            this.alasNuolinappain = true;
-        }
-        if (aNuoli == 0) {
-            this.alasNuolinappain = false;
-        }
+    public void vasenNuoliTila(boolean tila) {
+        this.vasenNuolinappain = tila;
+    }
+
+    public void oikeaNuoliTila(boolean tila) {
+        this.oikeaNuolinappain = tila;
+    }
+
+    public void ylaNuoliTila(boolean tila) {
+        this.ylosNuolinappain = tila;
+    }
+
+    public void alaNuoliTila(boolean tila) {
+        this.alasNuolinappain = tila;
+    }
+
+    public void valilyontiTila(boolean tila) {
+        this.valilyonti = tila;
+    }
+
+    public boolean[] nappaintenTila() {
+        boolean[] nappaintenTila = new boolean[5];
+        nappaintenTila[0] = this.vasenNuolinappain;
+        nappaintenTila[1] = this.oikeaNuolinappain;
+        nappaintenTila[2] = this.ylosNuolinappain;
+        nappaintenTila[3] = this.alasNuolinappain;
+        nappaintenTila[4] = this.valilyonti;
+        return nappaintenTila;
     }
 
 }

@@ -37,14 +37,6 @@ public class Ammus {
         this.y += this.dy;
     }
 
-    public int getX() {
-        return (int) x;
-    }
-
-    public int getY() {
-        return (int) y;
-    }
-
     /**
      * Metodi luo ammuksen koordinaattien perusteella ammusta ruudulla edustavan
      * polygonin.
@@ -58,6 +50,14 @@ public class Ammus {
         this.polygoni.addPoint((int) Math.round(x) + 1, (int) Math.round(y) + 1);
         this.polygoni.addPoint((int) Math.round(x) - 1, (int) Math.round(y) + 1);
         return polygoni;
+    }
+    
+    public int getX() {
+        return (int) x;
+    }
+
+    public int getY() {
+        return (int) y;
     }
 
 }

@@ -19,7 +19,7 @@ public class Alus implements Liikkuva {
     private static final int KAANTYMISNOPEUS = 5;
     private static final long AMMUSTEN_VALI = 100;
     private static final double NOPEUDENKASVATUSVAKIO = 0.5;
-    private static final double HIDASTUMISVAKIO = 0.1;
+    private static final double HIDASTUMISVAKIO = 0.2;
     private long edellisenAmmuksenAmpumisaika = -1;
     private Polygon alusPolygoni;
 
@@ -36,7 +36,8 @@ public class Alus implements Liikkuva {
      * Metodi kääntää avaruusalusta myötä- tai vastapäivään parametrin maara
      * ilmoittaman asteluvun.
      *
-     * @param maara
+     * @param maara kääntöaskelten määrä, arvot -1 tai 1 (myötäpäivään tai
+     * vastapäivään)
      */
     public void kaanna(int maara) {
         suunta += maara * KAANTYMISNOPEUS;
@@ -49,14 +50,12 @@ public class Alus implements Liikkuva {
     }
 
     /**
-     * Metodi liikuttaa alusta eteen- tai taaksepäin, jos aluksen nopeus > 0.
-     * Metodi myös hoitaa vauhdin tasaisen hidastumisen.
-     *
+     * Metodi liikuttaa alusta eteen- tai taaksepäin, jos aluksen nopeus on
+     * suurempi kuin 0. Metodi myös hoitaa vauhdin tasaisen hidastumisen.
      */
     public void liiku() {
         this.x += nopeus * Math.cos(Math.toRadians(kulkusuunta));
         this.y -= nopeus * Math.sin(Math.toRadians(kulkusuunta));
-        this.nopeus = nopeus - HIDASTUMISVAKIO;
         if (this.nopeus > 0) {
             this.nopeus -= HIDASTUMISVAKIO;
         } else if (this.nopeus < 0) {
@@ -70,8 +69,7 @@ public class Alus implements Liikkuva {
     /**
      * Metodi muuttaa aluksen nopeutta.
      *
-     * @param eteenVaiTaakse true, jos kiihtyvyys on eteenpäin; false, jos
-     * kiihtyvyys taaksepäin
+     * @param eteenVaiTaakse true tarkoittaa eteenpäin, valse taaksepäin
      */
     public void kiihdyta(boolean eteenVaiTaakse) {
         double a, b;
@@ -106,15 +104,9 @@ public class Alus implements Liikkuva {
         alusPolygoni.addPoint((int) Math.round(x1), (int) Math.round(y1));
     }
 
-    public Polygon getAlusPolygoni() {
-        return alusPolygoni;
-    }
-
     /**
      * Metodi toteuttaa aluksen ampumistoiminnallisuuden. Jos edellisen ammuksen
-     * ampumisesta on kulunut minimiaika, metodi luo uuden ammuksen, jonka
-     * koordinaatit ja suunta määrittyvät aluksen sijainnin ja suunnan
-     * perusteella.
+     * ampumisesta on kulunut minimiaika, metodi luo uuden ammuksen.
      *
      * @return Ammus-luokan olio, jonka alus ampuu
      */
@@ -149,16 +141,21 @@ public class Alus implements Liikkuva {
     }
 
     /**
-     * Metodi palauttaa edellisen metodin yhteenlaskemien vektoreiden
-     * summavektorin suunnan.
+     * Metodi laskee alukselle uuden kulkusuunnan
      */
     public void laskeUusiSuunta() {
         kulkusuunta = Math.toDegrees(Math.atan(-this.dy / this.dx));
         if (this.dx < 0) {
-            kulkusuunta+=180;
+            kulkusuunta += 180;
+        }
+        if (kulkusuunta < 0) {
+            kulkusuunta += 360;
+        }
+        if (kulkusuunta >= 360) {
+            kulkusuunta -= 360;
         }
     }
-    
+
     public double getSuunta() {
         return this.suunta;
     }
@@ -174,7 +171,11 @@ public class Alus implements Liikkuva {
     public double getNopeus() {
         return this.nopeus;
     }
-    
+
+    public Polygon getAlusPolygoni() {
+        return alusPolygoni;
+    }
+
     @Override
     public int getX() {
         return (int) this.x;
@@ -194,4 +195,5 @@ public class Alus implements Liikkuva {
     public void setY(int y) {
         this.y = (double) y;
     }
+
 }

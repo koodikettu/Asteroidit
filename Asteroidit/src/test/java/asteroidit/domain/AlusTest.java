@@ -6,6 +6,7 @@
 package asteroidit.domain;
 
 import asteroidit.domain.Alus;
+import asteroidit.peli.Asteroidipeli;
 import java.awt.Polygon;
 import java.util.Arrays;
 import org.junit.After;
@@ -21,7 +22,10 @@ import static org.junit.Assert.*;
  */
 public class AlusTest {
 
+    private Asteroidipeli peli;
+
     public AlusTest() {
+        peli = new Asteroidipeli();
     }
 
     @BeforeClass
@@ -136,22 +140,59 @@ public class AlusTest {
     }
 
     @Test
+    public void hidastumisTest() {
+        Alus alus = new Alus(100, 100, 90);
+
+        alus.kiihdyta(true);
+        alus.kiihdyta(true);
+        double a = alus.getNopeus();
+        System.out.println(a);
+        alus.liiku();
+        alus.liiku();
+        System.out.println(alus.getNopeus());
+        assertEquals(0.4, a - alus.getNopeus(), 0.01);
+
+    }
+
+    @Test
+    public void hidastumis2Test() {
+        Alus alus = new Alus(100, 100, 90);
+
+        alus.kiihdyta(true);
+        alus.liiku();
+        alus.liiku();
+        System.out.println(alus.getNopeus());
+        assertEquals(0, alus.getNopeus(), 0.01);
+
+    }
+
+    @Test
     public void kiihdytysTest2() {
         Alus alus = new Alus(100, 100, 90);
 
-        alus.kiihdyta(false);
-        alus.kiihdyta(false);
-        alus.kiihdyta(false);
-        alus.kiihdyta(false);
-        alus.kiihdyta(false);
-        alus.kiihdyta(false);
-        alus.kiihdyta(false);
-        alus.kiihdyta(false);
-        alus.kiihdyta(false);
-        alus.kiihdyta(false);
+        for (int i = 0; i < 10; i++) {
+            alus.kiihdyta(false);
+        }
+
         alus.liiku();
+
         assertEquals(100, alus.getX());
         assertEquals(105, alus.getY());
+
+    }
+
+    @Test
+    public void kiihdytysTest3() {
+        Alus alus = new Alus(100, 100, 45);
+
+        for (int i = 0; i < 10; i++) {
+            alus.kiihdyta(true);
+        }
+
+        alus.liiku();
+
+        assertEquals(100 + 5 * Math.cos(Math.toRadians(45)), alus.getX(), 1);
+        assertEquals(100 - 5 * Math.sin(Math.toRadians(45)), alus.getY(), 1);
 
     }
 
@@ -170,6 +211,36 @@ public class AlusTest {
 
         assertEquals(115, p.xpoints[2]);
         assertEquals(126, p.ypoints[2]);
+
+    }
+
+    @Test
+    public void suunta1Test() {
+        Alus alus = new Alus(100, 100, 359);
+        alus.kaanna(1);
+        assertEquals(4, alus.getSuunta(), 0.01);
+    }
+
+    @Test
+    public void suunta1Test2() {
+        Alus alus = new Alus(100, 100, 2);
+        alus.kaanna(-1);
+        assertEquals(357, alus.getSuunta(), 0.01);
+    }
+
+    @Test
+    public void ammuntaTest1() {
+        Alus alus = new Alus(100, 100, 90);
+        
+        assertEquals(true, alus.ammu()!=null);
+
+    }
+
+    @Test
+    public void ammuntaTest2() {
+        Alus alus = new Alus(100, 100, 90);
+        assertEquals(true, alus.ammu()!=null);
+        assertEquals(false, alus.ammu()!=null);
 
     }
 
