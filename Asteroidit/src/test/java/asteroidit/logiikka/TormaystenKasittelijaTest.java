@@ -66,17 +66,53 @@ public class TormaystenKasittelijaTest {
         Ammus ammus = new Ammus(-4, 100, 0);
         assertEquals(false, kasittelija.onRuudulla(ammus));
     }
-    
-        @Test
-    public void onRuudulla2ToimiiPos() {
-
-        assertEquals(true, kasittelija.onRuudulla(5,600));
-    }
 
     @Test
     public void onRuudulla2ToimiiNeg() {
+        Ammus ammus = new Ammus(100, -4, 0);
+        assertEquals(false, kasittelija.onRuudulla(ammus));
+    }
 
-        assertEquals(false, kasittelija.onRuudulla(1100,50));
+    @Test
+    public void onRuudulla3ToimiiNeg() {
+        Ammus ammus = new Ammus(1500, 100, 0);
+        assertEquals(false, kasittelija.onRuudulla(ammus));
+    }
+
+    @Test
+    public void onRuudulla4ToimiiNeg() {
+        Ammus ammus = new Ammus(100, 1500, 0);
+        assertEquals(false, kasittelija.onRuudulla(ammus));
+    }
+
+    @Test
+    public void onRuudulla5ToimiiPos() {
+
+        assertEquals(true, kasittelija.onRuudulla(5, 600));
+    }
+
+    @Test
+    public void onRuudulla5ToimiiNeg() {
+
+        assertEquals(false, kasittelija.onRuudulla(-1, 50));
+    }
+    
+        @Test
+    public void onRuudulla6ToimiiNeg() {
+
+        assertEquals(false, kasittelija.onRuudulla(50, -1));
+    }
+    
+        @Test
+    public void onRuudulla7ToimiiNeg() {
+
+        assertEquals(false, kasittelija.onRuudulla(1001, 50));
+    }
+    
+        @Test
+    public void onRuudulla8ToimiiNeg() {
+
+        assertEquals(false, kasittelija.onRuudulla(500, 601));
     }
 
     @Test
@@ -102,7 +138,6 @@ public class TormaystenKasittelijaTest {
         asteroidi.laskePolygoni();
         Ammus ammus = new Ammus(500, 600, 5);
         assertEquals(true, asteroidi.getAsteroidiPolygoni().contains(ammus.getX(), ammus.getY()));
-
 
     }
 
@@ -154,13 +189,13 @@ public class TormaystenKasittelijaTest {
         asteroidi.setX(x);
         asteroidi.setY(y);
         asteroidi.laskePolygoni();
+        peli.getAlus().laskeAlusPolygoni();
         int a = kasittelija.tutkiTormays(peli.getAlus(), asteroidi);
-        System.out.println(a);
         assertEquals(true, a > 0);
 
     }
-    
-        @Test
+
+    @Test
     public void tutkiAluksenTormayksetsTest() {
         int x = peli.getRuudunLeveys() / 2;
         int y = peli.getRuudunKorkeus() / 2;

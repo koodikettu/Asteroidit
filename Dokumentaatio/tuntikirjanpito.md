@@ -23,3 +23,9 @@
 19.2.2014  6h  Refaktorointia clean code -vaatimusten täyttämiseksi ja laajemman testauksen mahdollistamiseksi sekä testien kirjoittamista
 
 20.2.2014  2h  Sekvenssikaavioiden laatimista ja aihemaarittelyn paivittamista.
+
+23.2.2014  2h  Ohjelman valmistelu demokuntoon
+
+26.2.2014  3h  Refaktorointia
+
+27.2.2014  6h  Testien päivitystä, javadoccia, luokkakaavion päivitystä. Yleisesti projektin valmistelua loppupalautusta varten.

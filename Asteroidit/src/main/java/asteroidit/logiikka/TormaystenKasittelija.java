@@ -25,12 +25,12 @@ public class TormaystenKasittelija {
     private ArrayList<Asteroidi> poistettavatAsteroidit = new ArrayList<Asteroidi>();
     private ArrayList<Ammus> poistettavatAmmukset = new ArrayList<Ammus>();
     private ArrayList<Asteroidi> uudetAsteroidit = new ArrayList<Asteroidi>();
-    private Asteroidi asteroidi;
     private int korvaaviaAsteroideja = 0;
 
     public TormaystenKasittelija(Asteroidipeli peli) {
         this.peli = peli;
     }
+
     /**
      * Metodi tutkii ammusten ja asteroidien väliset törmäykset. Jos törmäys
      * havaitaan, siirretään kyseiset asteroidit ja ammukset odottamaan
@@ -38,7 +38,8 @@ public class TormaystenKasittelija {
      *
      * @param ammuslista lista ruudulla olevista ammuksista
      * @param asteroidilista lista pelissä olevista asteroideista
-     * @return korvattujen asteroidien määrä, käytetään vain testaustarkoituksiin
+     * @return korvattujen asteroidien määrä, käytetään vain
+     * testaustarkoituksiin
      */
     public int tutkiTormaykset(ArrayList<Ammus> ammuslista, ArrayList<Asteroidi> asteroidilista) {
         int x, y;
@@ -104,7 +105,6 @@ public class TormaystenKasittelija {
         }
         return tormays;
     }
-
     /**
      * Metodi tutkii, onko parametrina annettu Ammus-tyyppinen olio ruudulla.
      *
@@ -121,7 +121,6 @@ public class TormaystenKasittelija {
         }
         return true;
     }
-
     /**
      * edellisen onRuudulla-metodin ylikuormitettu versio, joka saa parametreinä
      * puhtaat x- ja y-koordinaatit
@@ -153,8 +152,7 @@ public class TormaystenKasittelija {
     public int tutkiTormays(Alus alus, Asteroidi asteroidi) {
         Polygon aluspolygoni = alus.getAlusPolygoni();
         Polygon asteroidipolygoni = asteroidi.getAsteroidiPolygoni();
-        int tulos = 0;
-        int i;
+        int i, tulos = 0;
         // tutkitaan, onko joku aluksen polygonin piste asteroidin polygonin sisällä
         for (i = 0; i < aluspolygoni.npoints; i++) {
             if (asteroidipolygoni.contains(aluspolygoni.xpoints[i], aluspolygoni.ypoints[i])) {
@@ -169,7 +167,6 @@ public class TormaystenKasittelija {
         }
         return tulos;
     }
-
     /**
      * Metodi tutkii, onko Liikkuva-rajapinnan toteuttava olio ajautunut ulos
      * ruudulta. Jos näin on, se siirtää olion ruudun vastakkaiselle puolelle.
@@ -192,7 +189,11 @@ public class TormaystenKasittelija {
             a.setY(this.peli.getRuudunKorkeus() + reunuksenLeveys);
         }
     }
-
+    /**
+     * Palauttaa listan asteroideista, jotka on poistettava pelistä.
+     *
+     * @return poistettavat asteroidit sisältävä ArrayList
+     */
     public ArrayList<Asteroidi> getPoistettavat() {
         return this.poistettavatAsteroidit;
     }
