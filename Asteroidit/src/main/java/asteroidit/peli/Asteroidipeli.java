@@ -56,7 +56,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
 
         this.kirjanpitaja = new Kirjanpitaja(1, this);
         this.tormaystenKasittelija = new TormaystenKasittelija(this);
-        this.alus = new Alus(this.RUUDUN_LEVEYS / 2, this.RUUDUN_KORKEUS / 2, 90);
+        this.alus = new Alus(RUUDUN_LEVEYS / 2, RUUDUN_KORKEUS / 2, 90);
         this.alus.laskeAlusPolygoni();
 
         vasenNuolinappain = false;
@@ -66,7 +66,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
         random = new Random();
         for (int index = 0; index < 4; index++) {
             this.a = new Asteroidi(0, 0, 0, 0, this.random);
-            this.a.alusta(this.random, this.RUUDUN_LEVEYS, this.RUUDUN_KORKEUS, this.REUNUKSEN_LEVEYS, asteroidienNopeus);
+            this.a.alusta(this.random, RUUDUN_LEVEYS, RUUDUN_KORKEUS, REUNUKSEN_LEVEYS, asteroidienNopeus);
             this.asteroidilista.add(a);
         }
 
@@ -75,7 +75,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
     }
 
     public int getRuudunLeveys() {
-        return this.RUUDUN_LEVEYS;
+        return RUUDUN_LEVEYS;
     }
 
     public Kirjanpitaja getKirjanpitaja() {
@@ -83,7 +83,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
     }
 
     public int getRuudunKorkeus() {
-        return this.RUUDUN_KORKEUS;
+        return RUUDUN_KORKEUS;
     }
 
     public Alus getAlus() {
@@ -124,13 +124,13 @@ public class Asteroidipeli extends Timer implements ActionListener {
 
         this.kirjanpitaja = new Kirjanpitaja(1, this);
         this.tormaystenKasittelija = new TormaystenKasittelija(this);
-        this.alus = new Alus(this.RUUDUN_LEVEYS / 2, this.RUUDUN_KORKEUS / 2, 90);
+        this.alus = new Alus(RUUDUN_LEVEYS / 2, RUUDUN_KORKEUS / 2, 90);
         this.alus.laskeAlusPolygoni();
         this.asteroidienNopeus = ASTEROIDIEN_ALKUNOPEUS;
 
         for (int index = 0; index < 4; index++) {
             this.a = new Asteroidi(0, 0, 0, 0, this.random);
-            this.a.alusta(this.random, this.RUUDUN_LEVEYS, this.RUUDUN_KORKEUS, this.REUNUKSEN_LEVEYS, asteroidienNopeus);
+            this.a.alusta(this.random, RUUDUN_LEVEYS, RUUDUN_KORKEUS, REUNUKSEN_LEVEYS, asteroidienNopeus);
             this.asteroidilista.add(a);
         }
     }
