@@ -11,7 +11,12 @@ Peli päättyy, kun pelaaja törmää asteroidiin.
 
 **Käyttäjät:** Kaikki retrohenkisistä peleistä kiinnostuneet. Ei erillisiä käyttäjäryhmiä.
 
-**"Käyttötapaukset":** 1. Pelaaja voi kääntää alusta vasemmalla ja oikealla nuolinappaimella vasta- ja myötäpäivään. 2. Pelaaja voi ampua ammuksia asteroideja kohti välilyönti-näppäimellä. 3. Pelaaja voi liikutella alusta kiihdyttämällä aluksen nopeutta ylä- ja alanuolinäppäimillä.
+**"Käyttötapaukset":**
+1. Pelaaja voi kääntää alusta vasemmalla ja oikealla nuolinappaimella vasta- ja myötäpäivään. 
+
+2. Pelaaja voi ampua ammuksia asteroideja kohti välilyönti-näppäimellä.
+
+3. Pelaaja voi liikutella alusta kiihdyttämällä aluksen nopeutta ylä- ja alanuolinäppäimillä.
 
 
 
