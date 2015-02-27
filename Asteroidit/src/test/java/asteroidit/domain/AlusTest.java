@@ -90,7 +90,8 @@ public class AlusTest {
     public void laskeUusiSuuntaTest() {
         Alus alus = new Alus(100, 100, 0);
         alus.laskeUusiNopeus(0, 0, 1, 45);
-        assertEquals(45, alus.laskeUusiSuunta(), 0.6);
+        alus.laskeUusiSuunta();
+        assertEquals(45, alus.getKulkusuunta(), 0.6);
     }
 
     @Test

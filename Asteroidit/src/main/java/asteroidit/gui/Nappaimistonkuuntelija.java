@@ -6,6 +6,7 @@
 package asteroidit.gui;
 
 import asteroidit.domain.Alus;
+import asteroidit.logiikka.TilanteenLaskija;
 import asteroidit.peli.Asteroidipeli;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -19,9 +20,11 @@ import java.awt.event.KeyListener;
 public class Nappaimistonkuuntelija implements KeyListener {
 
     private Asteroidipeli peli;
+    private TilanteenLaskija tl;
 
     public Nappaimistonkuuntelija(Asteroidipeli peli) {
         this.peli = peli;
+        this.tl=peli.getTilanteenLaskija();
     }
 
     @Override
@@ -36,22 +39,23 @@ public class Nappaimistonkuuntelija implements KeyListener {
      */
     @Override
     public void keyPressed(KeyEvent ke) {
+        this.tl=peli.getTilanteenLaskija();
         if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
-            this.peli.nappaimistonTila(1, -1, -1, -1, -1);
+            tl.nappaimistonTila(1, -1, -1, -1, -1);
 
         }
         if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
-            this.peli.nappaimistonTila(-1, 1, -1, -1, -1);
+            tl.nappaimistonTila(-1, 1, -1, -1, -1);
         }
         if (ke.getKeyCode() == KeyEvent.VK_UP) {
-            this.peli.nappaimistonTila(-1, -1, 1, -1, -1);
+            tl.nappaimistonTila(-1, -1, 1, -1, -1);
         }
         if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
-            this.peli.nappaimistonTila(-1, -1, -1, 1, -1);
+            tl.nappaimistonTila(-1, -1, -1, 1, -1);
         }
 
         if (ke.getKeyCode() == KeyEvent.VK_SPACE) {
-            this.peli.nappaimistonTila(-1, -1, -1, -1, 1);
+            tl.nappaimistonTila(-1, -1, -1, -1, 1);
         }
         if (ke.getKeyCode() == KeyEvent.VK_C) {
             this.peli.getAsteroidilista().clear();
@@ -72,21 +76,22 @@ public class Nappaimistonkuuntelija implements KeyListener {
      */
     @Override
     public void keyReleased(KeyEvent ke) {
+        this.tl=peli.getTilanteenLaskija();
         if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
-            this.peli.nappaimistonTila(0, -1, -1, -1, -1);
+            tl.nappaimistonTila(0, -1, -1, -1, -1);
 
         }
         if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
-            this.peli.nappaimistonTila(-1, 0, -1, -1, -1);
+            tl.nappaimistonTila(-1, 0, -1, -1, -1);
         }
         if (ke.getKeyCode() == KeyEvent.VK_UP) {
-            this.peli.nappaimistonTila(-1, -1, 0, -1, -1);
+            tl.nappaimistonTila(-1, -1, 0, -1, -1);
         }
         if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
-            this.peli.nappaimistonTila(-1, -1, -1, 0, -1);
+            tl.nappaimistonTila(-1, -1, -1, 0, -1);
         }
         if (ke.getKeyCode() == KeyEvent.VK_SPACE) {
-            this.peli.nappaimistonTila(-1, -1, -1, -1, 0);
+            tl.nappaimistonTila(-1, -1, -1, -1, 0);
         }
     }
 

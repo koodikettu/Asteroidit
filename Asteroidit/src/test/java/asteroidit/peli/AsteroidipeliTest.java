@@ -120,21 +120,7 @@ public class AsteroidipeliTest {
         assertEquals(1, peli.getAmmuslista().size() - a);
     }
 
-    @Test
-    public void kiihdytysTest1() {
-        peli.nappaimistonTila(1, 1, 1, 0, 1);
-        peli.aluksenHallinta();
 
-        assertEquals(true, peli.getAlus().getNopeus() > 0);
-    }
-
-    @Test
-    public void kaantoTest1() {
-        peli.nappaimistonTila(-1, 1, -1, -1, -1);
-        peli.aluksenHallinta();
-
-        assertEquals(85, peli.getAlus().getSuunta(), 0.01);
-    }
 
     @Test
     public void uusiAsteroidiToimii1() {
@@ -159,7 +145,7 @@ public class AsteroidipeliTest {
         peli.getAsteroidilista().get(0).setY(100);
         peli.getAsteroidilista().get(0).setDx(5);
         peli.getAsteroidilista().get(0).setDy(5);
-        peli.laskeTilanne();
+        peli.getTilanteenLaskija().laskeTilanne();
         assertEquals(105, peli.getAsteroidilista().get(0).getX());
         assertEquals(105, peli.getAsteroidilista().get(0).getY());
 
@@ -170,7 +156,7 @@ public class AsteroidipeliTest {
         peli.getAmmuslista().clear();
         Ammus a = new Ammus(50, 50, 0);
         peli.getAmmuslista().add(a);
-        peli.laskeTilanne();
+        peli.getTilanteenLaskija().laskeTilanne();
         assertEquals(60, peli.getAmmuslista().get(0).getX());
         assertEquals(50, peli.getAmmuslista().get(0).getY());
 
@@ -181,7 +167,7 @@ public class AsteroidipeliTest {
         peli.getAmmuslista().clear();
         Ammus a = new Ammus(5, 5, 180);
         peli.getAmmuslista().add(a);
-        peli.laskeTilanne();
+        peli.getTilanteenLaskija().laskeTilanne();
         assertEquals(0, peli.getAmmuslista().size());
         assertEquals(0, peli.getPoistettavatAmmukset().size());
 
@@ -199,8 +185,8 @@ public class AsteroidipeliTest {
         peli.getAsteroidilista().get(0).laskePolygoni();
         peli.getAsteroidilista().get(0).setX(800);
         peli.getAsteroidilista().get(0).setY(100);
-        peli.laskeTilanne();
-        peli.laskeTilanne();
+        peli.getTilanteenLaskija().laskeTilanne();
+        peli.getTilanteenLaskija().laskeTilanne();
         assertEquals(0, peli.getAmmuslista().size());
         assertEquals(0, peli.getPoistettavatAmmukset().size());
 
