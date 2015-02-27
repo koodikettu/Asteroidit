@@ -32,7 +32,6 @@ public class TormaystenKasittelija {
     public TormaystenKasittelija(Asteroidipeli peli) {
         this.peli = peli;
     }
-
     /**
      * Metodi tutkii ammusten ja asteroidien väliset törmäykset. Jos törmäys
      * havaitaan, siirretään kyseiset asteroidit ja ammukset odottamaan
@@ -58,10 +57,9 @@ public class TormaystenKasittelija {
                 }
             }
         }
-        int temp=korvaaviaAsteroideja;
+        int temp = korvaaviaAsteroideja;
         poistaPoistettavat(ammuslista, asteroidilista);
         return temp;
-
     }
 
     /**
@@ -122,14 +120,15 @@ public class TormaystenKasittelija {
         }
         return true;
     }
-    
+
     /**
-     * edellisen onRuudulla-metodin ylikuormitettu versio, joka saa parametreinä puhtaat x- ja y-koordinaatit
+     * edellisen onRuudulla-metodin ylikuormitettu versio, joka saa parametreinä
+     * puhtaat x- ja y-koordinaatit
+     *
      * @param x tutkittavan pisteen x-koordinaatti
      * @param y tutkittavan pisteen y-koordinaatti
      * @return true, jos piste on ruudulla; false, jos ei ole
      */
-    
     public boolean onRuudulla(int x, int y) {
         if (y < 0 || y > this.peli.getRuudunKorkeus()) {
             return false;
@@ -155,21 +154,18 @@ public class TormaystenKasittelija {
         Polygon asteroidipolygoni = asteroidi.getAsteroidiPolygoni();
         int tulos = 0;
         int i;
-
         // tutkitaan, onko joku aluksen polygonin piste asteroidin polygonin sisällä
         for (i = 0; i < aluspolygoni.npoints; i++) {
             if (asteroidipolygoni.contains(aluspolygoni.xpoints[i], aluspolygoni.ypoints[i])) {
                 tulos++;
             }
         }
-
         // tutkitaan, onko joku asteroidin polygonin piste aluksen polygonin sisällä
         for (i = 0; i < asteroidipolygoni.npoints; i++) {
             if (aluspolygoni.contains(asteroidipolygoni.xpoints[i], asteroidipolygoni.ypoints[i])) {
                 tulos += 10;
             }
         }
-
         return tulos;
     }
 
@@ -199,5 +195,4 @@ public class TormaystenKasittelija {
     public ArrayList<Asteroidi> getPoistettavat() {
         return this.poistettavatAsteroidit;
     }
-
 }

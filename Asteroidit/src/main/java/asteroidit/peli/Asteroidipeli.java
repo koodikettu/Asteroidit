@@ -27,11 +27,12 @@ import javax.swing.Timer;
  */
 public class Asteroidipeli extends Timer implements ActionListener {
 
-    private final int REUNUKSEN_LEVEYS = 25;
-    private final int PAIVITYSVALI = 20;
-    private final int ASTEROIDIEN_ALKUNOPEUS = 2;
-    private int ruudunLeveys;
-    private int ruudunKorkeus;
+    private static final int REUNUKSEN_LEVEYS = 25;
+    private static final int PAIVITYSVALI = 20;
+    private static final int ASTEROIDIEN_ALKUNOPEUS = 2;
+    private static final int RUUDUN_LEVEYS = 1000;
+    private static final int RUUDUN_KORKEUS = 600;
+
     private int asteroidienNopeus = ASTEROIDIEN_ALKUNOPEUS;
     private Alus alus;
     private boolean vasenNuolinappain;
@@ -55,9 +56,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
 
         this.kirjanpitaja = new Kirjanpitaja(1, this);
         this.tormaystenKasittelija = new TormaystenKasittelija(this);
-        this.ruudunKorkeus = 600;
-        this.ruudunLeveys = 1000;
-        this.alus = new Alus(this.ruudunLeveys / 2, this.ruudunKorkeus / 2, 90);
+        this.alus = new Alus(this.RUUDUN_LEVEYS / 2, this.RUUDUN_KORKEUS / 2, 90);
         this.alus.laskeAlusPolygoni();
 
         vasenNuolinappain = false;
@@ -67,7 +66,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
         random = new Random();
         for (int index = 0; index < 4; index++) {
             this.a = new Asteroidi(0, 0, 0, 0, this.random);
-            this.a.alusta(this.random, this.ruudunLeveys, this.ruudunKorkeus, this.ruudunLeveys, asteroidienNopeus);
+            this.a.alusta(this.random, this.RUUDUN_LEVEYS, this.RUUDUN_KORKEUS, this.REUNUKSEN_LEVEYS, asteroidienNopeus);
             this.asteroidilista.add(a);
         }
 
@@ -76,7 +75,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
     }
 
     public int getRuudunLeveys() {
-        return this.ruudunLeveys;
+        return this.RUUDUN_LEVEYS;
     }
 
     public Kirjanpitaja getKirjanpitaja() {
@@ -84,7 +83,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
     }
 
     public int getRuudunKorkeus() {
-        return this.ruudunKorkeus;
+        return this.RUUDUN_KORKEUS;
     }
 
     public Alus getAlus() {
@@ -112,7 +111,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
      */
     public void uusiAsteroidi() {
         a = new Asteroidi(0, 0, 0, 0, random);
-        a.alusta(random, ruudunLeveys, ruudunKorkeus, REUNUKSEN_LEVEYS, asteroidienNopeus);
+        a.alusta(random, RUUDUN_LEVEYS, RUUDUN_KORKEUS, REUNUKSEN_LEVEYS, asteroidienNopeus);
         this.asteroidilista.add(a);
     }
 
@@ -123,16 +122,15 @@ public class Asteroidipeli extends Timer implements ActionListener {
         this.asteroidilista.clear();
         this.ammuslista.clear();
 
-
         this.kirjanpitaja = new Kirjanpitaja(1, this);
         this.tormaystenKasittelija = new TormaystenKasittelija(this);
-        this.alus = new Alus(this.ruudunLeveys / 2, this.ruudunKorkeus / 2, 90);
+        this.alus = new Alus(this.RUUDUN_LEVEYS / 2, this.RUUDUN_KORKEUS / 2, 90);
         this.alus.laskeAlusPolygoni();
         this.asteroidienNopeus = ASTEROIDIEN_ALKUNOPEUS;
 
         for (int index = 0; index < 4; index++) {
             this.a = new Asteroidi(0, 0, 0, 0, this.random);
-            this.a.alusta(this.random, this.ruudunLeveys, this.ruudunKorkeus, this.ruudunLeveys, asteroidienNopeus);
+            this.a.alusta(this.random, this.RUUDUN_LEVEYS, this.RUUDUN_KORKEUS, this.REUNUKSEN_LEVEYS, asteroidienNopeus);
             this.asteroidilista.add(a);
         }
     }
@@ -146,7 +144,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
      * @param oNuoli Oikean nuoinäppäimen tila
      * @param yNuoli Nuoli ylöspäin -näppäimen tila
      * @param aNuoli Nuoli alaspäin -näppäimen tila
-     * @param vLyonti
+     * @param vLyonti valilyönti-nappaimen tila
      */
     public void nappaimistonTila(int vNuoli, int oNuoli, int yNuoli, int aNuoli, int vLyonti) {
         if (vNuoli == 1) {
@@ -185,12 +183,11 @@ public class Asteroidipeli extends Timer implements ActionListener {
         return this.asteroidilista;
     }
 
-
     public ArrayList<Ammus> getAmmuslista() {
         return this.ammuslista;
     }
-    
-        public ArrayList<Ammus> getPoistettavatAmmukset() {
+
+    public ArrayList<Ammus> getPoistettavatAmmukset() {
         return this.poistettavatAmmukset;
     }
 
@@ -201,7 +198,7 @@ public class Asteroidipeli extends Timer implements ActionListener {
     public void setYlapaneeli(Ylapaneeli ylapaneeli) {
         this.ylapaneeli = ylapaneeli;
     }
-    
+
     public TormaystenKasittelija getTormaystenKasittelija() {
         return this.tormaystenKasittelija;
     }
@@ -247,12 +244,12 @@ public class Asteroidipeli extends Timer implements ActionListener {
         tormaystenKasittelija.hoidaReunanYlitykset(alus, 0);
         alus.laskeAlusPolygoni();
     }
-    
+
     /**
      * Metodi sisältää pelin pääsilmukan.
-     * @param e 
+     *
+     * @param e ActionEvent-olio
      */
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -278,11 +275,11 @@ public class Asteroidipeli extends Timer implements ActionListener {
         setDelay(PAIVITYSVALI);
 
     }
-    
-    /**
-     * Metodi laskee ruudun päivitystä varten pelissä olevien objektien seuraavan tilanteen.
-     */
 
+    /**
+     * Metodi laskee ruudun päivitystä varten pelissä olevien objektien
+     * seuraavan tilanteen.
+     */
     public void laskeTilanne() {
         aluksenHallinta();
 
@@ -303,12 +300,11 @@ public class Asteroidipeli extends Timer implements ActionListener {
         for (Ammus a : this.poistettavatAmmukset) {
             this.ammuslista.remove(a);
         }
-        
+
         this.poistettavatAmmukset.clear();
 
         tormaystenKasittelija.tutkiTormaykset(this.ammuslista, this.asteroidilista);
         tormaystenKasittelija.tutkiAluksenTormaykset(this.asteroidilista);
-        
 
     }
 

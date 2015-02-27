@@ -31,9 +31,9 @@ public class Nappaimistonkuuntelija implements KeyListener {
 
     /**
      * Metodi käsittelee havaitut näppäimen alaspainamiset.
+     *
      * @param ke KeyEvent-olio
      */
-    
     @Override
     public void keyPressed(KeyEvent ke) {
         if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -64,13 +64,12 @@ public class Nappaimistonkuuntelija implements KeyListener {
         }
 
     }
-    
+
     /**
      * Metodi käsittelee havaitut näppäinten vapautukset
+     *
      * @param ke KeyEvent-olio
      */
-
-
     @Override
     public void keyReleased(KeyEvent ke) {
         if (ke.getKeyCode() == KeyEvent.VK_LEFT) {

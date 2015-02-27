@@ -16,15 +16,12 @@ import java.awt.Polygon;
  */
 public class Alus implements Liikkuva {
 
-    private double x, y;
-    private double suunta;
-    private double nopeus;
-    private double dx, dy;
-    private final int KAANTYMISNOPEUS = 5;
+    private double x, y, suunta, nopeus, dx, dy;
+    private static final int KAANTYMISNOPEUS = 5;
     private double kulkusuunta;
-    private final long AMMUSTEN_VALI = 50;
-    private final double NOPEUDENKASVATUSVAKIO = 0.5;
-    private final double HIDASTUMISVAKIO = 0.1;
+    private static final long AMMUSTEN_VALI = 100;
+    private static final double NOPEUDENKASVATUSVAKIO = 0.5;
+    private static final double HIDASTUMISVAKIO = 0.1;
     private Asteroidipeli peli;
     private long edellisenAmmuksenAmpumisaika = -1;
     private Polygon alusPolygoni;
@@ -36,11 +33,7 @@ public class Alus implements Liikkuva {
         this.peli = peli;
         this.nopeus = 0;
         this.kulkusuunta = suunta;
-
         this.alusPolygoni = new Polygon();
-
-        
-
     }
 
     /**
@@ -76,7 +69,6 @@ public class Alus implements Liikkuva {
         if (Math.abs(this.nopeus) < HIDASTUMISVAKIO) {
             this.nopeus = 0;
         }
-
     }
 
     /**
@@ -89,12 +81,11 @@ public class Alus implements Liikkuva {
         double a, b;
         if (eteenVaiTaakse) {
             this.nopeus = laskeUusiNopeus(this.nopeus, this.kulkusuunta, this.NOPEUDENKASVATUSVAKIO, this.suunta);
-            this.kulkusuunta = laskeUusiSuunta();
         }
         if (!eteenVaiTaakse) {
             this.nopeus = laskeUusiNopeus(this.nopeus, this.kulkusuunta, this.NOPEUDENKASVATUSVAKIO, this.suunta - 180);
-            this.kulkusuunta = laskeUusiSuunta();
         }
+        this.kulkusuunta = laskeUusiSuunta();
     }
 
     public double getSuunta() {
@@ -112,30 +103,26 @@ public class Alus implements Liikkuva {
     public double getNopeus() {
         return this.nopeus;
     }
-    
 
     /**
      * Metodi laskee aluksen kärkipisteet sisältävän polygonin aluksen sijainnin
      * perusteella.
      */
     public void laskeAlusPolygoni() {
-        
+
         double x1, y1;
         double apu = Math.toRadians(150);
         double radiaanit = Math.toRadians(this.suunta);
 
         alusPolygoni.reset();
-           
         // keulakulma
         x1 = Math.cos(radiaanit) * 30.0 + this.x;
         y1 = -Math.sin(radiaanit) * 30.0 + this.y;
         alusPolygoni.addPoint((int) Math.round(x1), (int) Math.round(y1));
-        
         // vasen kulma
         x1 = Math.cos(radiaanit + apu) * 30.0 + this.x;
         y1 = -Math.sin(radiaanit + apu) * 30.0 + this.y;
         alusPolygoni.addPoint((int) Math.round(x1), (int) Math.round(y1));
-        
         // oikea kulma
         x1 = Math.cos(radiaanit - apu) * 30.0 + this.x;
         y1 = -Math.sin(radiaanit - apu) * 30.0 + this.y;
@@ -166,7 +153,6 @@ public class Alus implements Liikkuva {
         ay += this.y;
         edellisenAmmuksenAmpumisaika = aikakoodi;
         return (new Ammus((int) ax, (int) ay, (int) this.suunta));
-
     }
 
     @Override
@@ -205,21 +191,18 @@ public class Alus implements Liikkuva {
         this.dy = -pituus1 * Math.sin(Math.toRadians(suunta1)) - pituus2 * Math.sin(Math.toRadians(suunta2));
         return Math.sqrt(this.dx * this.dx + this.dy * this.dy);
     }
-    
+
     /**
-     * Metodi palauttaa edellisen metodin yhteenlaskemien vektoreiden summavektorin suunnan.
-     * 
+     * Metodi palauttaa edellisen metodin yhteenlaskemien vektoreiden
+     * summavektorin suunnan.
+     *
      * @return vektorin suunta asteina
      */
-
     public double laskeUusiSuunta() {
-        System.out.println(this.dx + "; " + this.dy);
-        double suunta;
-        suunta = Math.toDegrees(Math.atan(-this.dy / this.dx));
+        double suunta = Math.toDegrees(Math.atan(-this.dy / this.dx));
         if (this.dx < 0) {
             return suunta + 180;
         }
         return suunta;
     }
-
 }

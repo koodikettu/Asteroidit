@@ -171,7 +171,7 @@ public class AsteroidipeliTest {
         Ammus a = new Ammus(50, 50, 0);
         peli.getAmmuslista().add(a);
         peli.laskeTilanne();
-        assertEquals(58, peli.getAmmuslista().get(0).getX());
+        assertEquals(60, peli.getAmmuslista().get(0).getX());
         assertEquals(50, peli.getAmmuslista().get(0).getY());
 
     }

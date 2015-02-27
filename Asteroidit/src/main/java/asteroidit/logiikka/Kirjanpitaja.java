@@ -24,12 +24,13 @@ public class Kirjanpitaja {
         this.tila = tila;
         this.peli = peli;
     }
-    
+
     /**
-     * Metodi kasvattaa pelaajan pistesaldoa ja tarkistaa, antaako pistemäärä aihetta kasvattaa asteroidien nopeutta.
+     * Metodi kasvattaa pelaajan pistesaldoa ja tarkistaa, antaako pistemäärä
+     * aihetta kasvattaa asteroidien nopeutta.
+     *
      * @param n Määrä, jolla pistesaldoa kasvatetaan.
      */
-
     public void kasvataPisteita(int n) {
         this.pisteet += n;
         if (this.pisteet % 200 == 0) {

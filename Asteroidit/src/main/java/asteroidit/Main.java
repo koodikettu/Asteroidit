@@ -29,7 +29,7 @@ public class Main {
                 Thread.sleep(100);
 
             } catch (InterruptedException ex) {
-
+                System.out.println("Thread.sleep exception.");
             }
         }
 
@@ -37,8 +37,6 @@ public class Main {
         asteroidipeli.setYlapaneeli(kayttoliittyma.getYlapaneeli());
 
         asteroidipeli.start();
-
-        
 
     }
 

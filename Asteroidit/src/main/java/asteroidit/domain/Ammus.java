@@ -14,7 +14,7 @@ import java.awt.Polygon;
  */
 public class Ammus {
 
-    private static double AMMUKSEN_NOPEUS = 8;
+    private static final double AMMUKSEN_NOPEUS = 10;
     private double x, y, dx, dy;
     private int suunta;
 
@@ -28,11 +28,10 @@ public class Ammus {
         this.polygoni = new Polygon();
         this.suunta = suunta;
     }
-    
+
     /**
      * Metodi liikuttaa ammusta sen nopeuden mukaisesti.
      */
-
     public void liiku() {
         this.x += this.dx;
         this.y += this.dy;
@@ -45,13 +44,13 @@ public class Ammus {
     public int getY() {
         return (int) y;
     }
-    
+
     /**
-     * Metodi luo ammuksen koordinaattien perusteella ammusta ruudulla edustavan polygonin.
-     * 
+     * Metodi luo ammuksen koordinaattien perusteella ammusta ruudulla edustavan
+     * polygonin.
+     *
      * @return palauttaa muodostetun Polygon-olion
      */
-
     public Polygon getAmmusPolygoni() {
         this.polygoni.reset();
         this.polygoni.addPoint((int) Math.round(x) - 1, (int) Math.round(y) - 1);

@@ -13,11 +13,13 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 /**
- * Luokka sisältää pelin käyttöliittymän yläosassa olevan paneelin, jossa mm. pisteet.
+ * Luokka sisältää pelin käyttöliittymän yläosassa olevan paneelin, jossa mm.
+ * pisteet.
+ *
  * @author Markku
  */
 public class Ylapaneeli extends JPanel {
-    
+
     private int status;
     private String s;
 
@@ -26,18 +28,17 @@ public class Ylapaneeli extends JPanel {
     public Ylapaneeli(Asteroidipeli a) {
         this.peli = a;
     }
-    
+
     /**
      * Metodi piirtää yläpaneelin.
+     *
      * @param g Graphics-olio
      */
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(0, 0, this.peli.getRuudunLeveys(),80);
-
+        g.fillRect(0, 0, this.peli.getRuudunLeveys(), 80);
 
         status = peli.getKirjanpitaja().getTila();
         if (status == 0 || status == -1) {
@@ -59,9 +60,8 @@ public class Ylapaneeli extends JPanel {
     /**
      * Metodi päivittää yläpaneelin
      */
-    
     public void paivita() {
         super.repaint();
     }
-    
+
 }

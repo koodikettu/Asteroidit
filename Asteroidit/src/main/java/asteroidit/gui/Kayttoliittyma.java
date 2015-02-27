@@ -22,7 +22,7 @@ public class Kayttoliittyma implements Runnable {
 
     private JFrame frame;
     private Asteroidipeli peli;
-    
+
     private int ruudunLeveys;
     private int ruudunKorkeus;
 
@@ -33,10 +33,10 @@ public class Kayttoliittyma implements Runnable {
     public Kayttoliittyma(Asteroidipeli asteroidipeli) {
         super();
         this.peli = asteroidipeli;
-        
+
         frame = new JFrame("Asteroidit");
         ruudunLeveys = peli.getRuudunLeveys();
-        ruudunKorkeus = peli.getRuudunKorkeus()+80;
+        ruudunKorkeus = peli.getRuudunKorkeus() + 80;
         frame.setLayout(new BorderLayout(0, 0));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(ruudunLeveys, ruudunKorkeus));
@@ -46,33 +46,33 @@ public class Kayttoliittyma implements Runnable {
 
     @Override
     public void run() {
-        
 
         luoKomponentit(frame.getContentPane());
 
         frame.pack();
         frame.setVisible(true);
     }
-    
-    /**
-     * Luo ruudulle komponentit yläpaneeli ja piirtoalusta, sekä liittää Näppäimistönkuuntelijan.
-     * @param container 
-     */
 
+    /**
+     * Luo ruudulle komponentit yläpaneeli ja piirtoalusta, sekä liittää
+     * Näppäimistönkuuntelijan.
+     *
+     * @param container Container-olio
+     */
     public void luoKomponentit(Container container) {
         this.piirtoalusta = new Piirtoalusta(this.peli);
-        
+
         this.ylapaneeli = new Ylapaneeli(this.peli);
         ylapaneeli.setPreferredSize(new Dimension(this.ruudunLeveys, 80));
         ylapaneeli.paivita();
-        
+
         container.add(ylapaneeli, BorderLayout.NORTH);
         container.add(this.piirtoalusta, BorderLayout.CENTER);
-        nk=new Nappaimistonkuuntelija(this.peli);
+        nk = new Nappaimistonkuuntelija(this.peli);
         frame.addKeyListener(nk);
 
     }
-    
+
     public Nappaimistonkuuntelija getNappaimistonkuuntelija() {
         return nk;
     }
@@ -80,7 +80,7 @@ public class Kayttoliittyma implements Runnable {
     public Piirtoalusta getPiirtoalusta() {
         return this.piirtoalusta;
     }
-    
+
     public Ylapaneeli getYlapaneeli() {
         return this.ylapaneeli;
     }

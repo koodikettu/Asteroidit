@@ -48,7 +48,7 @@ public class AmmusTest {
     public void vaakaliikeTest() {
         Ammus ammus = new Ammus(100, 100, 0);
         ammus.liiku();
-        assertEquals(108, ammus.getX());
+        assertEquals(110, ammus.getX());
         assertEquals(100, ammus.getY());
     }
 
@@ -57,7 +57,7 @@ public class AmmusTest {
         Ammus ammus = new Ammus(100, 100, 270);
         ammus.liiku();
         assertEquals(100, ammus.getX());
-        assertEquals(108, ammus.getY());
+        assertEquals(110, ammus.getY());
     }
 
     @Test
