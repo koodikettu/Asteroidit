@@ -5,7 +5,7 @@ Koska kyseessä on reaaliajassa toimiva sovellus, jonka eteneminen perustuu suure
 
 Sovelluksessa ei ole myöskään ole juurikaan kiellettyjä syötteitä eikä sellaisia kiellettyjä tiloja, joiden syntymistä testauksella erityisesti pitäisi tutkia. Lähinnä tärkeää on törmäysten tunnistaminen oikein sekä reunanylitysten hoitaminen. Kummassakaan tapauksessa oleellista ei ole rajatapauksissa pikselin tarkkuus, eikä siten ole suurta väliä, käytetäänkö vertailuja tehdessä > vai >= operaattoria.
 
-Ohjelmakoodiin on myös testausta varten lisätty gettereitä ja settereitä, joita käytetään ainoastaan testauksessa. Samoin eräät muuttujat palauttavat paluuarvon, vaikka itse ohjelmassa paluuarvoa ei käytetä mihinkään.
+Ohjelmakoodiin on myös testausta varten lisätty gettereitä ja settereitä, joita käytetään ainoastaan testauksessa. Samoin eräät metodit palauttavat paluuarvon, vaikka itse ohjelmassa paluuarvoa ei käytetä mihinkään.
 
 
 
